@@ -7,7 +7,8 @@ Description:
 Responsible for managing the interaction between the user and the library's data
  */
 
-import Model.Book;
+import Application.BookFileHandler;
+import Domain.Book;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,14 +22,13 @@ public class LibraryManager {
     public LibraryManager() {
         fileHandler = new BookFileHandler(COLLECTION_PATH);
         books = new HashMap<>();
-        loadBooks();
     }
 
     /*
     Adds books from a file containing books
      */
     public boolean addBooksFromFile(String filePath) {
-        ArrayList<Book> newBooks = fileHandler.getBooksFromFile(filePath);
+        ArrayList<Book> newBooks = fileHandler.readBooks(filePath);
 
         if (newBooks.size() == 0) {
             System.out.println("\nNo books to add...");
@@ -48,8 +48,6 @@ public class LibraryManager {
             books.put(book.getBookId(), book);
         }
 
-        // Update collection with new data
-        updateCollection();
 
         return true;
     }
@@ -65,7 +63,6 @@ public class LibraryManager {
         books.remove(bookId);
 
         // Update collection to reflect changes
-        updateCollection();
 
         return true;
     }
@@ -77,22 +74,5 @@ public class LibraryManager {
         for (Book book : books.values()) {
             System.out.println(book.getBookId() + ". Title: " + book.getTitle() + " | Author: " + book.getAuthor());
         }
-    }
-
-    /*
-    Loads books from the library-collection file
-     */
-    private void loadBooks() {
-        ArrayList<Book> booksList = fileHandler.getLibraryCollection();
-        for (Book book : booksList) {
-            books.putIfAbsent(book.getBookId(), book);
-        }
-    }
-
-    /*
-    Overwrites books in the library-collection file using the current data
-     */
-    private void updateCollection() {
-        fileHandler.overwriteCollection(books.values());
     }
 }
