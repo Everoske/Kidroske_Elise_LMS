@@ -1,5 +1,0 @@
-1,To Kill a Mockingbird,Harper Lee
-2,1984,George Orwell
-3,The Great Gatsby,F. Scott Fitzgerald
-4,Cinder,Marissa Meyer
-5,The Bad Beginning,Lemony Snicket
