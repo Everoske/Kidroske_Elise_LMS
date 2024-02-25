@@ -11,13 +11,13 @@ Represents an instance of a book in the library's collection.
 public class Book {
     private int bookId;
     private String title;
-    private int barcode;
+    private String barcode;
     private String author;
     private String genre;
     private BookStatus bookStatus;
     private Date dueDate;
 
-    public Book(int bookId, String title, int barcode, String author, String genre, BookStatus bookStatus) {
+    public Book(int bookId, String title, String barcode, String author, String genre, BookStatus bookStatus) {
         this.bookId = bookId;
         this.title = title;
         this.barcode = barcode;
@@ -26,7 +26,7 @@ public class Book {
         this.bookStatus = bookStatus;
     }
 
-    public Book(int bookId, String title, int barcode, String author, String genre, BookStatus bookStatus, Date dueDate) {
+    public Book(int bookId, String title, String barcode, String author, String genre, BookStatus bookStatus, Date dueDate) {
         this(bookId, title, barcode, author, genre, bookStatus);
         this.dueDate = dueDate;
     }
@@ -47,11 +47,11 @@ public class Book {
         this.title = title;
     }
 
-    public int getBarcode() {
+    public String getBarcode() {
         return barcode;
     }
 
-    public void setBarcode(int barcode) {
+    public void setBarcode(String barcode) {
         this.barcode = barcode;
     }
 
