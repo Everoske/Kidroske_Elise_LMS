@@ -10,6 +10,9 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -65,6 +68,20 @@ public class LibraryCore {
     Informs database to update book in the library's collection
      */
     public void checkInBook(Book book, IInformable informable) {
+        // If book is already checked in, invoke an error and terminate process
+        if (book.getBookStatus() == BookStatus.CHECKED_IN) {
+            informable.invokeError("You cannot check in a book that is already checked in.");
+            return;
+        }
+
+        // Change Status
+        book.setBookStatus(BookStatus.CHECKED_IN);
+
+        // Tell Database layer to update book
+        // databaseManager.updateBook(book);
+
+        // Inform Controller layer about the change
+        // informable.updateContent(databaseManager.getAllBooks());
 
     }
 
@@ -116,34 +133,46 @@ public class LibraryCore {
     Checks to ensure the file is in the correct format using a regular expression
      */
     private boolean validateFormat(String line) {
+        // This pattern matches id,title,barcode,author,genre,checked_status
         Pattern pattern = Pattern.compile("[0-9]+,[^,;]+,[0-9]+,[^,;]+,[^,;]+,[^,;]+,[^,;]*");
         Matcher matcher = pattern.matcher(line);
         return matcher.find();
     }
 
     /*
-   Processes a string representation of a book into a Book object.
-   Returns null if a NumberFormatException occurs
+   Processes a String representation of a book into a Book object.
+   Returns null if unable to create a Book object
     */
     private Book createBookFromString(String bookString) {
         String[] parameters = bookString.split(",");
         int bookId;
         BookStatus bookStatus = stringToBookStatus(parameters[5]);
 
+        // Books must have a Book Status
         if (bookStatus == null) {
             return null;
         }
 
+        // Ensure Book ID is a valid integer
         try {
             bookId = Integer.parseInt(parameters[0]);
         } catch (NumberFormatException e) {
             return null;
         }
 
-        //TODO: Convert Date into Date object if it exists
+        // Some books will have a due date, check if it exists
+        if (parameters.length > 6) {
+            String dateString = parameters[6];
 
-        // System.out.println(parameters[6]);
+            // Ensure the string provided can be converted into a LocalDate object
+            LocalDate dueDate = parseLocalDate(dateString);
+            if (dueDate != null) {
+                // Returns a book with a due date
+                return  new Book(bookId, parameters[1], parameters[2], parameters[3], parameters[4], bookStatus, dueDate);
+            }
+        }
 
+        // Returns a book without a due date
         return new Book(bookId, parameters[1], parameters[2], parameters[3], parameters[4], bookStatus);
     }
 
@@ -162,8 +191,33 @@ public class LibraryCore {
     Converts a Book object into its String representation
      */
     public String getBookString(Book book) {
+        // This checks if a book has a due date
+        // If it does, the due date is appended to the final String
+        // Otherwise, an empty String is appended
+        String date = "";
+        try {
+            date = "," + book.getDueDate().toString();
+        } catch (NullPointerException ignored) {
+
+        }
+
         return book.getBookId() + "," + book.getTitle() + ","
                 + book.getBarcode() + "," + book.getAuthor() + ","
-                + book.getGenre() + "," + book.getBookStatus();
+                + book.getGenre() + "," + book.getBookStatus()
+                + date;
+    }
+
+    /*
+    Attempts to convert a String into a LocalDate object
+    Returns null if no LocalDate can be translated
+     */
+    private LocalDate parseLocalDate(String dateString) {
+        try {
+            return LocalDate.parse(dateString);
+        } catch (DateTimeException ignored) {
+
+        }
+
+        return null;
     }
 }

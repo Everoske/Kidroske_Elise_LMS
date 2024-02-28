@@ -1,7 +1,6 @@
 package Domain;
 
-import java.util.Date;
-
+import java.time.LocalDate;
 /*
 Project By: Elise Kidroske
 Class: Software Development I CEN-3024C
@@ -15,7 +14,7 @@ public class Book {
     private String author;
     private String genre;
     private BookStatus bookStatus;
-    private Date dueDate;
+    private LocalDate dueDate;
 
     public Book(int bookId, String title, String barcode, String author, String genre, BookStatus bookStatus) {
         this.bookId = bookId;
@@ -26,7 +25,7 @@ public class Book {
         this.bookStatus = bookStatus;
     }
 
-    public Book(int bookId, String title, String barcode, String author, String genre, BookStatus bookStatus, Date dueDate) {
+    public Book(int bookId, String title, String barcode, String author, String genre, BookStatus bookStatus, LocalDate dueDate) {
         this(bookId, title, barcode, author, genre, bookStatus);
         this.dueDate = dueDate;
     }
@@ -79,11 +78,11 @@ public class Book {
         this.bookStatus = bookStatus;
     }
 
-    public Date getDueDate() {
+    public LocalDate getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(Date dueDate) {
+    public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
     }
 }
