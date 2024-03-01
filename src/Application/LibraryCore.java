@@ -22,6 +22,8 @@ import java.util.regex.Pattern;
 /*
 Project By: Elise Kidroske
 Class: Software Development I CEN-3024C
+Date: 03/01/2024
+Name: Library Core
 Description:
 Primary component of the application layer. Processes and validates data from external files
 and passes them on for use. Handles exchanges of information between the controller and
@@ -38,6 +40,10 @@ public class LibraryCore {
     }
 
     /*
+    Name: Get Books From Text File
+    Arguments: String representing path to a text file, IBookController representing controller
+    Returns: Void
+    Description:
     Gets Book objects from an external text file
      */
     public void getBooksFromTextFile(String pathString, IBookController informable) {
@@ -55,24 +61,32 @@ public class LibraryCore {
     }
 
     /*
+    Name: Add Books to Database
+    Arguments: List<Book> representing books to add, IBookController representing controller
+    Returns: Void
+    Description:
     Adds Books to the library's collection database
      */
-    public void addBooksToDatabase(List<Book> newBooks, IBookController informable) {
+    public void addBooksToDatabase(List<Book> newBooks, IBookController bookController) {
         // Inform database manager to insert books to collection
         boolean insertedBooks = databaseManager.insertBooks(newBooks);
 
         // If insertion was unsuccessful, inform Controller and return
         if (!insertedBooks) {
-            informable.invokeError("Unable to insert books.");
+            bookController.invokeError("Unable to insert books.");
             return;
         }
 
         // Inform Controller about the change
-        informable.updateContent(databaseManager.getAllBooks());
-        informable.invokeMessage("Books were added successfully.");
+        bookController.updateContent(databaseManager.getAllBooks());
+        bookController.invokeMessage("Books were added successfully.");
     }
 
     /*
+    Name: Remove Book From Collection
+    Arguments: Book for the book to remove, IBookController representing controller
+    Returns: Void
+    Description:
     Removes a Book from the library's collection database
      */
     public void removeBookFromCollection(Book book, IBookController bookController) {
@@ -91,13 +105,17 @@ public class LibraryCore {
     }
 
     /*
+    Name: Check Out Book
+    Arguments: Book for the book to check out, IBookController for the controller
+    Returns: Void
+    Description:
     Changes the status of the book to checked out
     Informs database to update book in the library's collection
      */
-    public void checkOutBook(Book book, IBookController informable) {
+    public void checkOutBook(Book book, IBookController bookController) {
         // If book is already checked in, invoke an error message and terminate process
         if (book.getBookStatus() == BookStatus.CHECKED_OUT) {
-            informable.invokeError("You cannot check out a book that is already checked in.");
+            bookController.invokeError("You cannot check out a book that is already checked in.");
             return;
         }
 
@@ -113,16 +131,20 @@ public class LibraryCore {
 
         // If there was an error with updating the book, invoke an error message and terminate process
         if (!bookUpdated) {
-            informable.invokeError("Unable to update book.");
+            bookController.invokeError("Unable to update book.");
             return;
         }
 
         // Inform Controller layer about the change
-        informable.updateContent(databaseManager.getAllBooks());
-        informable.invokeMessage(book.getTitle() + " was successfully checked out. The new due date is " + book.getDueDate() + ".");
+        bookController.updateContent(databaseManager.getAllBooks());
+        bookController.invokeMessage(book.getTitle() + " was successfully checked out. The new due date is " + book.getDueDate() + ".");
     }
 
     /*
+    Name: Check In Book
+    Arguments: Book for the book to check in, IBookController for the controller
+    Returns: Void
+    Description:
     Changes the status of the book to checked in
     Informs database to update book in the library's collection
      */
@@ -152,6 +174,10 @@ public class LibraryCore {
     }
 
     /*
+    Name: Find Book By Title
+    Arguments: String title to lookup
+    Returns: Book
+    Description:
     Searches for a book using its title
      */
     public Book findBookByTitle(String title) {
@@ -159,6 +185,10 @@ public class LibraryCore {
     }
 
     /*
+    Name: Find Book By Barcode
+    Arguments: String barcode to lookup
+    Returns: Book
+    Description:
     Searches for a book using its barcode
      */
     public Book findBookByBarcode(String barcode) {
@@ -166,6 +196,10 @@ public class LibraryCore {
     }
 
     /*
+    Name: Get Library Books
+    Arguments: None
+    Returns: ArrayList<Book> for the books from the library's database
+    Description:
     Returns all the books from the library's collection
      */
     public ArrayList<Book> getLibraryBooks() {
@@ -173,6 +207,10 @@ public class LibraryCore {
     }
 
     /*
+    Name: Read Books
+    Arguments: Path for the path to a text file
+    Returns: ArrayList<Book> for the books read from the text file
+    Description:
     Given a Path object, returns a collection of books from a given file location
      */
     private ArrayList<Book> readBooks(Path path) {
@@ -204,6 +242,10 @@ public class LibraryCore {
     }
 
     /*
+    Name: Read Books
+    Arguments: String path
+    Returns: ArrayList<Book> for the books read from the text file
+    Description:
     Returns a collection of books from a given file location String
     Returns null if unable to generate a Path object from the given String
      */
@@ -221,6 +263,10 @@ public class LibraryCore {
     }
 
     /*
+    Name: Validate Format
+    Arguments: String for a line in a text file
+    Returns: True or false based on whether the line has a match to the regex
+    Description:
     Checks to ensure the file is in the correct format using a regular expression
      */
     private boolean validateFormat(String line) {
@@ -231,9 +277,13 @@ public class LibraryCore {
     }
 
     /*
-   Processes a String representation of a book into a Book object.
-   Returns null if unable to create a Book object
-   The book ID is -1 which is meant to be a placeholder for database insertion
+    Name: Create Book From String
+    Argument: String for the book string
+    Returns: Book
+    Description:
+    Processes a String representation of a book into a Book object.
+    Returns null if unable to create a Book object
+    The book ID is -1 which is meant to be a placeholder for database insertion
     */
     private Book createBookFromString(String bookString) {
         // Split string using commas as the delimiter
@@ -263,6 +313,10 @@ public class LibraryCore {
     }
 
     /*
+    Name: String to Book Status
+    Arguments: String text
+    Returns: Book Status enum
+    Description:
     Converts a String value into a BookStatus enum
      */
     private BookStatus stringToBookStatus(String text) {
@@ -275,6 +329,9 @@ public class LibraryCore {
     }
 
     /*
+    Name: Parse Local Date
+    Arguments: String date
+    Returns: Local Date
     Attempts to convert a String into a LocalDate object
     Returns null if no LocalDate can be translated
      */

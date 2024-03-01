@@ -11,6 +11,8 @@ import java.util.Scanner;
 /*
 Project By: Elise Kidroske
 Class: Software Development I CEN-3024C
+Date: 03/01/2024
+Name: Test Controller
 Description:
 This class only exists for testing. It is meant to
 stand in for the actual user interface controller
@@ -26,6 +28,10 @@ public class TestController implements IBookController {
     }
 
     /*
+    Name: Show Options
+    Arguments: None
+    Returns: None
+    Description:
     This prints the user's options for interacting with the library
      */
     public void showOptions() {
@@ -40,6 +46,10 @@ public class TestController implements IBookController {
     }
 
     /*
+    Name: Print Collection
+    Arguments: None
+    Returns: None
+    Description:
     Prints the library collection
      */
     public void printCollection() {
@@ -55,6 +65,10 @@ public class TestController implements IBookController {
     }
 
     /*
+    Name: Get Books From Path
+    Arguments: None
+    Returns: None
+    Description:
     Gets books from an absolute path supplied by the user
      */
     public void getBooksFromPath() {
@@ -66,6 +80,10 @@ public class TestController implements IBookController {
     }
 
     /*
+    Name: Check Out Book
+    Arguments: None
+    Returns: None
+    Description:
     Asks the user for a book title and attempts to check it out
      */
     public void checkOutBook() {
@@ -82,6 +100,10 @@ public class TestController implements IBookController {
     }
 
     /*
+    Name: Check In Book
+    Arguments: None
+    Returns: None
+    Description:
     Asks the user for a book title and attempts to check it in
      */
     public void checkInBook() {
@@ -98,6 +120,10 @@ public class TestController implements IBookController {
     }
 
     /*
+    Name: Select Removal Method
+    Arguments: None
+    Returns: None
+    Description:
     Prompts the user to choose between removing a book by its title
     or removing a book by its barcode
      */
@@ -128,6 +154,10 @@ public class TestController implements IBookController {
     }
 
     /*
+    Name: Remove Book By Title
+    Arguments: None
+    Returns: None
+    Description:
     Removes book based on a title provided by the user
      */
     private void removeBookByTitle() {
@@ -144,6 +174,10 @@ public class TestController implements IBookController {
     }
 
     /*
+    Name: Remove Book By Barcode
+    Arguments: None
+    Returns: None
+    Description:
     Removes book based on a barcode provided by the user
      */
     private void removeBookByBarcode() {
@@ -160,6 +194,10 @@ public class TestController implements IBookController {
     }
 
     /*
+    Name: Await Enter Press
+    Arguments: None
+    Returns: None
+    Description:
     Waits for a user to press enter
      */
     public void awaitEnterPress() {
@@ -169,6 +207,10 @@ public class TestController implements IBookController {
     }
 
     /*
+    Name: Get Integer From User
+    Arguments: None
+    Returns: int representing user supplied number
+    Description:
     Gets an integer from the user
     Loops until an integer value is given
      */
@@ -191,6 +233,10 @@ public class TestController implements IBookController {
     }
 
     /*
+    Name: Get Yes Or No Response
+    Arguments: None
+    Returns: String representing yes or no
+    Description:
     Attempts to get a Yes or No response from the user
     It returns either Y or N as the user's response
      */
@@ -219,6 +265,10 @@ public class TestController implements IBookController {
     }
 
     /*
+    Name: Get Book String
+    Arguments: Book
+    Returns: String representation of book
+    Description:
     Converts a Book object into its String representation
      */
     public String getBookString(Book book) {
@@ -229,6 +279,10 @@ public class TestController implements IBookController {
     }
 
     /*
+    Name: Invoke Message
+    Arguments: String message
+    Returns: Void
+    Description:
     Allows other classes to send a message to the user
      */
     @Override
@@ -238,6 +292,10 @@ public class TestController implements IBookController {
     }
 
     /*
+    Name: Invoke Error
+    Arguments: String message
+    Returns: Void
+    Description:
     Allows other classes to send an error message to the user
      */
     @Override
@@ -247,6 +305,10 @@ public class TestController implements IBookController {
     }
 
     /*
+    Name: Invoke Delete Confirmation
+    Arguments: String message, Book to delete
+    Returns: Void
+    Description:
     Asks the user for confirmation before deleting a book from the database
      */
     @Override
@@ -264,6 +326,10 @@ public class TestController implements IBookController {
     }
 
     /*
+    Name: Update Content
+    Arguments: ArrayList<Book> representing library collection
+    Returns: Void
+    Description:
     Updates the list with the updated contents of the database
     In the final product, this list will be an observable list
      */
@@ -274,6 +340,10 @@ public class TestController implements IBookController {
     }
 
     /*
+    Name: Invoke Preview
+    Arguments: ArrayList<Book> representing new books from text file
+    Returns: Void
+    Description:
     Shows the user books from a selected source and asks for
     confirmation before adding the books to the database
      */

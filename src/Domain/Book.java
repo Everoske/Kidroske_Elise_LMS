@@ -3,6 +3,8 @@ package Domain;
 /*
 Project By: Elise Kidroske
 Class: Software Development I CEN-3024C
+Date: 03/01/2024
+Name: Book
 Description:
 Represents an instance of a book in the library's collection.
  */

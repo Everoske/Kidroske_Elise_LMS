@@ -7,6 +7,8 @@ import java.util.*;
 /*
 Project By: Elise Kidroske
 Class: Software Development I CEN-3024C
+Date: 03/01/2024
+Name: Pseudo Database
 Description:
 This class only exists for testing. It is meant to
 stand in for the actual SQL database
@@ -35,6 +37,10 @@ public class PseudoDatabase {
     }
 
     /*
+    Name: Update Book
+    Arguments: Book to update
+    Returns: True or false based on success
+    Description:
     Represents the UPDATE logic of a relational database
     Returns true if the update was successful
     Returns false otherwise
@@ -54,6 +60,10 @@ public class PseudoDatabase {
     }
 
     /*
+    Name: Delete Book
+    Arguments: Book
+    Returns: True or false based on success
+    Description:
     Represents the DELETE logic of a relational database
     Returns true if the book was successfully deleted
     Returns false otherwise
@@ -74,6 +84,10 @@ public class PseudoDatabase {
     }
 
     /*
+    Name: Insert Book
+    Arguments: Book
+    Returns: True or false based on success
+    Description:
     Represents the INSERT logic of a relational database
     Returns true if book was inserted
      */
@@ -88,6 +102,10 @@ public class PseudoDatabase {
     }
 
     /*
+    Name: Query All
+    Arguments: None
+    Returns: ArrayList<Book> representing all books in database
+    Description:
     Represents SELECT * in a relational database
     Returns all of the Book objects stored in the HashMap
      */
@@ -96,6 +114,10 @@ public class PseudoDatabase {
     }
 
     /*
+    Name: Query By Title
+    Arguments: String title
+    Returns: Book
+    Description:
     Retrieves a book by its title using a linear search
      */
     public Book queryByTitle(String title) {
@@ -108,6 +130,10 @@ public class PseudoDatabase {
     }
 
     /*
+    Name: Query By Barcode
+    Arguments: String barcode
+    Returns: Book
+    Description:
     Retrieves a book by its barcode using a linear search
      */
     public Book queryByBarcode(String barcode) {
@@ -120,6 +146,10 @@ public class PseudoDatabase {
     }
 
     /*
+    Name: Next Primary Key
+    Arguments: None
+    Returns: int representing next primary key
+    Description:
     Represents the next primary key in the database
     Returns highest book ID + 1
      */

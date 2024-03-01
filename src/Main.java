@@ -7,6 +7,8 @@ import java.util.Scanner;
 /*
 Project By: Elise Kidroske
 Class: Software Development I CEN-3024C
+Date: 03/01/2024
+Name: Main
 Description:
 The purpose of this program is to allow users to manage the contents of a library.
 The library collection is represented by Book objects stored in a relational database.
@@ -19,6 +21,10 @@ main components of the application as well as the application loop.
  */
 public class Main {
     /*
+    Name: Main
+    Arguments: None
+    Returns: Void
+    Description:
     Contains the application loop and used to process and respond to user input
      */
     public static void main(String[] args) {
