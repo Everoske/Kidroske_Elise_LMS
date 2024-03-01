@@ -115,7 +115,7 @@ public class LibraryCore {
     public void checkOutBook(Book book, IBookController bookController) {
         // If book is already checked in, invoke an error message and terminate process
         if (book.getBookStatus() == BookStatus.CHECKED_OUT) {
-            bookController.invokeError("You cannot check out a book that is already checked in.");
+            bookController.invokeError("You cannot check out a book that is already checked out.");
             return;
         }
 
