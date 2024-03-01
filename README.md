@@ -1,13 +1,5 @@
 # Overview
-Console-based library management system created by Elise Kidroske for Software Development I, CEN 3024C. This application enables the user to view books in a library's collection, add new books from a file, and remove books from the collection. 
+Phase I of the improved library management system. This library management system is designed to allow librarians to store and manage digital representations of books in a library. This phase focused on implementing the functional requirements and logic of the program. The user interface and database implementation were out of scope for this phase. 
 
-## Input
-User integers for nagivation.
-User integers for book removal.
-User path strings for loading data from user files.
-
-## Output
-String messages prompting user for input.
-String messages showing how input was processed.
-String message showing books in library's collection.
-String warning when invalid input is entered.
+## Features
+A pseudo database was used in place of an SQL database to focus on developing functionality. A console-based controller was used in place of a JavaFX controller. The user can print all books from the library's pseudo database. The user can add books from a text file of their choosing. The user can check in and check out books by typing a book's title into the console. The user can remove books from the library pseudo database. 
