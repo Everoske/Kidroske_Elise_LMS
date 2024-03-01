@@ -1,138 +1,67 @@
-import Controller.LibraryManager;
+import Application.LibraryCore;
+import Test.TestController;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 /*
 Project By: Elise Kidroske
 Class: Software Development I CEN-3024C
 Description:
-This program is a console-based library management system. It is meant to
-be used to manage books in a library's collection. It contains methods for saving books,
-removing books, and viewing books in the collection. The collection is preserved on a
-text file which is read from and written to by the application.
+The purpose of this program is to allow users to manage the contents of a library.
+The library collection is represented by Book objects stored in a relational database.
+This program allows users to view the books in the library's database, add new books
+by providing text files, delete existing books using their title or barcode, and
+check out/check in books using their title.
+
+This class is the insertion point for the program at its current state. It contains the
+main components of the application as well as the application loop.
  */
-
 public class Main {
-    private static Scanner userInputReader;
-    private static LibraryManager libraryManager;
-
     /*
     Contains the application loop and used to process and respond to user input
      */
     public static void main(String[] args) {
         boolean isRunning = true;
-        userInputReader = new Scanner(System.in);
-        libraryManager = new LibraryManager();
+        Scanner userInputReader = new Scanner(System.in);
+        LibraryCore libraryCore = new LibraryCore(StandardCharsets.UTF_8);
+        TestController controller = new TestController(libraryCore, userInputReader);
 
         // Application loop
         while(isRunning) {
-            printOptions();
+            // Show menu options and get user input
+            controller.showOptions();
+            int userInput = controller.getIntegerFromUser();
 
-            int processedResponse = getIntegerFromUser();
-
-            switch (processedResponse) {
+            switch (userInput) {
+                // Print books to user
                 case 1 -> {
-                    printCollection();
+                    controller.printCollection();
+                    System.out.println();
+                    controller.awaitEnterPress();
                 }
-                case 2 -> {
-                    addBooksFromPath();
-                }
-                case 3 -> {
-                    removeBook();
-                }
-                case 4 -> {
-                    // Terminate program
+
+                // Get books from a user provided path
+                case 2 -> controller.getBooksFromPath();
+
+                case 3 -> controller.checkOutBook();
+
+                case 4 -> controller.checkInBook();
+
+                // Remove a book by entering either its title or barcode
+                case 5 -> controller.selectRemovalMethod();
+
+                // Terminate program
+                case 6 -> {
                     System.out.println("\nTerminating program...");
                     isRunning = false;
                 }
-                default -> {
-                    System.out.println("\nInvalid number. Please enter a number between 1 and 4...\n");
-                    awaitEnterPress();
-                }
+
+                default -> System.out.println("\nInvalid number. Please enter a number between 1 and 4...\n");
             }
         }
 
+        // Close Scanner before exiting
         userInputReader.close();
-    }
-
-    /*
-    This prints the user's options for interacting with the library
-     */
-    public static void printOptions() {
-        System.out.println("--- LIBRARY MANAGEMENT SYSTEM ---");
-        System.out.println("Please select one of the following options:");
-        System.out.println("1. Show all books");
-        System.out.println("2. Add books from a file");
-        System.out.println("3. Remove books from the collection");
-        System.out.println("4. Quit\n");
-    }
-
-    /*
-    Prints the library collection
-     */
-    private static void printCollection() {
-        System.out.println();
-        libraryManager.printCollection();
-        System.out.println();
-        awaitEnterPress();
-    }
-
-    /*
-    Adds books from absolute path entered by the user
-     */
-    private static void addBooksFromPath() {
-        System.out.println("\nEnter the absolute path of the file you wish to load from:");
-        String absolutePath = userInputReader.nextLine();
-        if (libraryManager.addBooksFromFile(absolutePath)) {
-            System.out.println("\nLoaded books successfully\n");
-        } else {
-            System.out.println("\nUnable to add books...\n");
-        }
-        awaitEnterPress();
-    }
-
-    /*
-    Removes book based off user input
-     */
-    private static void removeBook() {
-        System.out.println("\nPlease select a book to delete:\n");
-        int bookId = getIntegerFromUser();
-        if (libraryManager.removeBook(bookId)) {
-            System.out.println("\nBook deleted successfully\n");
-        } else {
-            System.out.println("\nUnable to delete book: Book does not exist\n");
-        }
-        awaitEnterPress();
-    }
-
-    /*
-    Waits for a user to press enter
-     */
-    public static void awaitEnterPress() {
-        System.out.print("Press enter to continue... ");
-        userInputReader.nextLine();
-        System.out.println();
-    }
-
-    /*
-    Gets an integer from the user
-    Loops until an integer value is given
-     */
-    public static int getIntegerFromUser() {
-        int userInt = -1;
-        boolean userEnteredInt = false;
-
-        while (!userEnteredInt) {
-            System.out.print("Enter a number: ");
-            String unprocessedResponse = userInputReader.nextLine();
-            try {
-                userInt = Integer.parseInt(unprocessedResponse);
-                userEnteredInt = true;
-            } catch (NumberFormatException e) {
-                System.out.println("\nPlease enter a number...\n");
-            }
-        }
-
-        return userInt;
     }
 }
