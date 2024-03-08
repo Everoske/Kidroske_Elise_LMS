@@ -46,18 +46,18 @@ public class LibraryCore {
     Description:
     Gets Book objects from an external text file
      */
-    public void getBooksFromTextFile(String pathString, IBookController informable) {
+    public void getBooksFromTextFile(String pathString, IBookController bookController) {
         // Read books from a user provided location
         ArrayList<Book> books = readBooks(pathString);
 
         // If no books are processed, inform Controller and return
         if (books == null || books.isEmpty()) {
-            informable.invokeError("Unable to read any books from file.");
+            bookController.invokeError("Unable to read any books from file.");
             return;
         }
 
         // Send books to the Controller for preview
-        informable.invokePreview(books);
+        bookController.invokePreview(books);
     }
 
     /*

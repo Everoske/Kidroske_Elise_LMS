@@ -14,15 +14,16 @@ Class: Software Development I CEN-3024C
 Date: 03/01/2024
 Name: Test Controller
 Description:
-This class only exists for testing. It is meant to
-stand in for the actual user interface controller
+This class is a console-based implementation of a controller
+It is not for production and is a placeholder until the
+user interface is implemented
  */
-public class TestController implements IBookController {
+public class ConsoleBasedController implements IBookController {
     private final LibraryCore libraryCore;
     private final Scanner userInputReader;
     private ArrayList<Book> books;
 
-    public TestController(LibraryCore libraryCore, Scanner userInputReader) {
+    public ConsoleBasedController(LibraryCore libraryCore, Scanner userInputReader) {
         this.libraryCore = libraryCore;
         this.userInputReader = userInputReader;
     }

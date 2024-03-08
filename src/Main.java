@@ -1,5 +1,5 @@
 import Application.LibraryCore;
-import Test.TestController;
+import Test.ConsoleBasedController;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
@@ -31,7 +31,7 @@ public class Main {
         boolean isRunning = true;
         Scanner userInputReader = new Scanner(System.in);
         LibraryCore libraryCore = new LibraryCore(StandardCharsets.UTF_8);
-        TestController controller = new TestController(libraryCore, userInputReader);
+        ConsoleBasedController controller = new ConsoleBasedController(libraryCore, userInputReader);
 
         // Application loop
         while(isRunning) {
