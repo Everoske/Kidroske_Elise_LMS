@@ -2,6 +2,7 @@ package controller;
 
 import application.LibraryCore;
 import domain.Book;
+import javafx.scene.control.Label;
 import presentation.ConfirmationDialog;
 import presentation.MessageDialog;
 import presentation.MessageType;
@@ -32,17 +33,17 @@ public class LibraryController implements IBookController {
     public TextField checkBooksField;
 
     @FXML
-    public Text bookTitleText;
+    public Label bookTitleText;
     @FXML
-    public Text bookBarcodeText;
+    public Label bookBarcodeText;
     @FXML
-    public Text bookAuthorText;
+    public Label bookAuthorText;
     @FXML
-    public Text bookGenreText;
+    public Label bookGenreText;
     @FXML
-    public Text bookStatusText;
+    public Label bookStatusText;
     @FXML
-    public Text bookDueDateText;
+    public Label bookDueDateText;
 
     private LibraryCore libraryCore;
     private ObservableList<Book> observableBooks;

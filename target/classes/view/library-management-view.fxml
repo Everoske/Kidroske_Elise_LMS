@@ -16,7 +16,7 @@
           prefHeight="600.0" prefWidth="600.0">
     <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
 
-    <Text text="Library Management System"
+    <Label text="Library Management System"
           textAlignment="CENTER"
           GridPane.halignment="CENTER"
           GridPane.columnIndex="0" GridPane.rowIndex="0"
@@ -24,135 +24,135 @@
         <font>
             <Font name="System Bold" size="24.0"/>
         </font>
-    </Text>
+    </Label>
 
-    <Text text="Books"
+    <Label text="Books"
           GridPane.columnIndex="2" GridPane.rowIndex="1"
           GridPane.columnSpan="2">
         <font>
             <Font name="System Bold" size="18.0"/>
         </font>
-    </Text>
+    </Label>
 
     <ListView fx:id="bookList"
               prefWidth="300"
               GridPane.columnIndex="2" GridPane.rowIndex="2"
               GridPane.rowSpan="13"/>
 
-    <Text text="Book Information"
+    <Label text="Book Information"
           GridPane.columnIndex="0" GridPane.rowIndex="1"
           GridPane.columnSpan="2">
         <font>
             <Font name="System Bold" size="18.0"/>
         </font>
-    </Text>
+    </Label>
 
-    <Text text="Title"
+    <Label text="Title"
           GridPane.columnIndex="0" GridPane.rowIndex="2"
           GridPane.columnSpan="1">
         <font>
             <Font name="System Bold" size="16.0"/>
         </font>
-    </Text>
+    </Label>
 
-    <Text fx:id="bookTitleText" text="None"
+    <Label fx:id="bookTitleText" text="None"
           GridPane.columnIndex="0" GridPane.rowIndex="3"
           GridPane.columnSpan="1">
         <font>
             <Font name="System" size="12.0"/>
         </font>
-    </Text>
+    </Label>
 
-    <Text text="Barcode"
+    <Label text="Barcode"
           GridPane.columnIndex="1" GridPane.rowIndex="2"
           GridPane.columnSpan="1">
         <font>
             <Font name="System Bold" size="16.0"/>
         </font>
-    </Text>
+    </Label>
 
-    <Text fx:id="bookBarcodeText" text="None"
+    <Label fx:id="bookBarcodeText" text="None"
           GridPane.columnIndex="1" GridPane.rowIndex="3"
           GridPane.columnSpan="1">
         <font>
             <Font name="System" size="12.0"/>
         </font>
-    </Text>
+    </Label>
 
-    <Text text="Author"
+    <Label text="Author"
           GridPane.columnIndex="0" GridPane.rowIndex="4"
           GridPane.columnSpan="1">
         <font>
             <Font name="System Bold" size="16.0"/>
         </font>
-    </Text>
+    </Label>
 
-    <Text fx:id="bookAuthorText" text="None"
+    <Label fx:id="bookAuthorText" text="None"
           GridPane.columnIndex="0" GridPane.rowIndex="5"
           GridPane.columnSpan="1">
         <font>
             <Font name="System" size="12.0"/>
         </font>
-    </Text>
+    </Label>
 
-    <Text text="Genre"
+    <Label text="Genre"
           GridPane.columnIndex="1" GridPane.rowIndex="4"
           GridPane.columnSpan="1">
         <font>
             <Font name="System Bold" size="16.0"/>
         </font>
-    </Text>
+    </Label>
 
-    <Text fx:id="bookGenreText" text="None"
+    <Label fx:id="bookGenreText" text="None"
           GridPane.columnIndex="1" GridPane.rowIndex="5"
           GridPane.columnSpan="1">
         <font>
             <Font name="System" size="12.0"/>
         </font>
-    </Text>
+    </Label>
 
-    <Text text="Book Status"
+    <Label text="Book Status"
           GridPane.columnIndex="0" GridPane.rowIndex="6"
           GridPane.columnSpan="1">
         <font>
             <Font name="System Bold" size="16.0"/>
         </font>
-    </Text>
+    </Label>
 
-    <Text fx:id="bookStatusText" text="None"
+    <Label fx:id="bookStatusText" text="None"
           GridPane.columnIndex="0" GridPane.rowIndex="7"
           GridPane.columnSpan="1">
         <font>
             <Font name="System" size="12.0"/>
         </font>
-    </Text>
+    </Label>
 
-    <Text text="Due Date"
+    <Label text="Due Date"
           GridPane.columnIndex="1" GridPane.rowIndex="6"
           GridPane.columnSpan="1">
         <font>
             <Font name="System Bold" size="16.0"/>
         </font>
-    </Text>
+    </Label>
 
-    <Text fx:id="bookDueDateText" text="None"
+    <Label fx:id="bookDueDateText" text="None"
           GridPane.columnIndex="1" GridPane.rowIndex="7"
           GridPane.columnSpan="1">
         <font>
             <Font name="System" size="12.0"/>
         </font>
-    </Text>
+    </Label>
 
     <Label GridPane.columnIndex="0" GridPane.rowIndex="8"
            GridPane.columnSpan="2"/>
 
-    <Text text="Manage Books"
+    <Label text="Manage Books"
           GridPane.columnIndex="0" GridPane.rowIndex="9"
           GridPane.columnSpan="2">
         <font>
             <Font name="System Bold" size="18.0"/>
         </font>
-    </Text>
+    </Label>
 
     <TextField fx:id="removeBookByTitle"
                promptText="Title..."
