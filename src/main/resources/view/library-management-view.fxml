@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<GridPane xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="controller.LibraryController"
+          hgap="10" vgap="10"
+          prefHeight="600.0" prefWidth="600.0">
+    <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+
+    <Text text="Library Management System"
+          textAlignment="CENTER"
+          GridPane.halignment="CENTER"
+          GridPane.columnIndex="0" GridPane.rowIndex="0"
+          GridPane.columnSpan="4">
+        <font>
+            <Font name="System Bold" size="24.0"/>
+        </font>
+    </Text>
+
+    <Text text="Books"
+          GridPane.columnIndex="2" GridPane.rowIndex="1"
+          GridPane.columnSpan="2">
+        <font>
+            <Font name="System Bold" size="18.0"/>
+        </font>
+    </Text>
+
+    <ListView fx:id="bookList"
+              prefWidth="300"
+              GridPane.columnIndex="2" GridPane.rowIndex="2"
+              GridPane.rowSpan="13"/>
+
+    <Text text="Book Information"
+          GridPane.columnIndex="0" GridPane.rowIndex="1"
+          GridPane.columnSpan="2">
+        <font>
+            <Font name="System Bold" size="18.0"/>
+        </font>
+    </Text>
+
+    <Text text="Title"
+          GridPane.columnIndex="0" GridPane.rowIndex="2"
+          GridPane.columnSpan="1">
+        <font>
+            <Font name="System Bold" size="16.0"/>
+        </font>
+    </Text>
+
+    <Text fx:id="bookTitleText" text="None"
+          GridPane.columnIndex="0" GridPane.rowIndex="3"
+          GridPane.columnSpan="1">
+        <font>
+            <Font name="System" size="12.0"/>
+        </font>
+    </Text>
+
+    <Text text="Barcode"
+          GridPane.columnIndex="1" GridPane.rowIndex="2"
+          GridPane.columnSpan="1">
+        <font>
+            <Font name="System Bold" size="16.0"/>
+        </font>
+    </Text>
+
+    <Text fx:id="bookBarcodeText" text="None"
+          GridPane.columnIndex="1" GridPane.rowIndex="3"
+          GridPane.columnSpan="1">
+        <font>
+            <Font name="System" size="12.0"/>
+        </font>
+    </Text>
+
+    <Text text="Author"
+          GridPane.columnIndex="0" GridPane.rowIndex="4"
+          GridPane.columnSpan="1">
+        <font>
+            <Font name="System Bold" size="16.0"/>
+        </font>
+    </Text>
+
+    <Text fx:id="bookAuthorText" text="None"
+          GridPane.columnIndex="0" GridPane.rowIndex="5"
+          GridPane.columnSpan="1">
+        <font>
+            <Font name="System" size="12.0"/>
+        </font>
+    </Text>
+
+    <Text text="Genre"
+          GridPane.columnIndex="1" GridPane.rowIndex="4"
+          GridPane.columnSpan="1">
+        <font>
+            <Font name="System Bold" size="16.0"/>
+        </font>
+    </Text>
+
+    <Text fx:id="bookGenreText" text="None"
+          GridPane.columnIndex="1" GridPane.rowIndex="5"
+          GridPane.columnSpan="1">
+        <font>
+            <Font name="System" size="12.0"/>
+        </font>
+    </Text>
+
+    <Text text="Book Status"
+          GridPane.columnIndex="0" GridPane.rowIndex="6"
+          GridPane.columnSpan="1">
+        <font>
+            <Font name="System Bold" size="16.0"/>
+        </font>
+    </Text>
+
+    <Text fx:id="bookStatusText" text="None"
+          GridPane.columnIndex="0" GridPane.rowIndex="7"
+          GridPane.columnSpan="1">
+        <font>
+            <Font name="System" size="12.0"/>
+        </font>
+    </Text>
+
+    <Text text="Due Date"
+          GridPane.columnIndex="1" GridPane.rowIndex="6"
+          GridPane.columnSpan="1">
+        <font>
+            <Font name="System Bold" size="16.0"/>
+        </font>
+    </Text>
+
+    <Text fx:id="bookDueDateText" text="None"
+          GridPane.columnIndex="1" GridPane.rowIndex="7"
+          GridPane.columnSpan="1">
+        <font>
+            <Font name="System" size="12.0"/>
+        </font>
+    </Text>
+
+    <Label GridPane.columnIndex="0" GridPane.rowIndex="8"
+           GridPane.columnSpan="2"/>
+
+    <Text text="Manage Books"
+          GridPane.columnIndex="0" GridPane.rowIndex="9"
+          GridPane.columnSpan="2">
+        <font>
+            <Font name="System Bold" size="18.0"/>
+        </font>
+    </Text>
+
+    <TextField fx:id="removeBookByTitle"
+               promptText="Title..."
+               prefWidth="150"
+               GridPane.columnIndex="0" GridPane.rowIndex="10"/>
+    <TextField fx:id="removeBookByBarcode"
+               promptText="Barcode..."
+               prefWidth="150"
+               GridPane.columnIndex="1" GridPane.rowIndex="10"/>
+
+    <Button id="removeBook" text="Remove Book"
+            onAction="#onRemoveBook"
+            prefWidth="300"
+            GridPane.columnIndex="0" GridPane.rowIndex="11"
+            GridPane.columnSpan="2"/>
+
+    <TextField fx:id="checkBooksField"
+               promptText="Title..."
+               prefWidth="300"
+               GridPane.columnIndex="0" GridPane.rowIndex="12"
+               GridPane.columnSpan="2"/>
+
+    <Button id="checkoutButton" text="Check Out"
+            onAction="#onCheckOutBooks"
+            prefWidth="150"
+            GridPane.columnIndex="0" GridPane.rowIndex="13"/>
+    <Button id="checkInButton" text="Check In"
+            onAction="#onCheckInBooks"
+            prefWidth="150"
+            GridPane.columnIndex="1" GridPane.rowIndex="13"/>
+
+    <Button id="displayBooksButton" text="Display Books"
+            onAction="#onDisplayBooks"
+            prefWidth="300"
+            GridPane.columnIndex="0" GridPane.rowIndex="14"
+            GridPane.columnSpan="2"/>
+
+    <Label GridPane.columnIndex="0" GridPane.rowIndex="15"
+           GridPane.columnSpan="2"/>
+
+    <Button text="Add Books From File"
+            onAction="#onAddBooksFromFileClick"
+            prefWidth="600"
+            GridPane.columnIndex="0" GridPane.rowIndex="16"
+            GridPane.columnSpan="4"/>
+
+    <Button text="Add Books From Database"
+            onAction="#onAddBooksFromDatabaseClick"
+            prefWidth="600"
+            GridPane.columnIndex="0" GridPane.rowIndex="17"
+            GridPane.columnSpan="4"/>
+</GridPane>

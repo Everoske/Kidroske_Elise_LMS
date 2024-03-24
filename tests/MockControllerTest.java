@@ -1,6 +1,6 @@
-import Application.LibraryCore;
-import Domain.Book;
-import Domain.BookStatus;
+import application.LibraryCore;
+import domain.Book;
+import domain.BookStatus;
 import org.junit.jupiter.api.DisplayName;
 
 import java.nio.charset.StandardCharsets;

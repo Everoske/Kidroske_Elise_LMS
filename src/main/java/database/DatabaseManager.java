@@ -1,7 +1,7 @@
-package Database;
+package database;
 
-import Domain.Book;
-import Test.PseudoDatabase;
+import domain.Book;
+import test.PseudoDatabase;
 
 import java.util.ArrayList;
 import java.util.List;

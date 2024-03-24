@@ -1,4 +1,4 @@
-package Domain;
+package domain;
 
 /*
 Project By: Elise Kidroske

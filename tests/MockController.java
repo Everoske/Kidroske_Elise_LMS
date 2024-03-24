@@ -1,6 +1,6 @@
-import Application.LibraryCore;
-import Controller.IBookController;
-import Domain.Book;
+import application.LibraryCore;
+import controller.IBookController;
+import domain.Book;
 
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;

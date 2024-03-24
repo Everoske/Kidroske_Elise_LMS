@@ -1,9 +1,9 @@
-package Application;
+package application;
 
-import Controller.IBookController;
-import Database.DatabaseManager;
-import Domain.Book;
-import Domain.BookStatus;
+import controller.IBookController;
+import database.DatabaseManager;
+import domain.Book;
+import domain.BookStatus;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -137,7 +137,7 @@ public class LibraryCore {
 
         // Inform Controller layer about the change
         bookController.updateContent(databaseManager.getAllBooks());
-        bookController.invokeMessage(book.getTitle() + " was successfully checked out. The new due date is " + book.getDueDate() + ".");
+        bookController.invokeMessage(book.getTitle() + " was successfully checked out.\nThe new due date is " + book.getDueDate() + ".");
     }
 
     /*
