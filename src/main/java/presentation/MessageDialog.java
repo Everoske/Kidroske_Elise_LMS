@@ -14,10 +14,17 @@ import javafx.stage.Window;
 
 import java.util.Objects;
 
+/*
+Project By: Elise Kidroske
+Class: Software Development I CEN-3024C
+Date: 03/24/2024
+Name: Message Dialog
+Description:
+This dialog is to display a message to the user.
+ */
 public class MessageDialog extends Dialog<ButtonType> {
     private final String message;
     private final MessageType type;
-
     private final Image icon;
 
     public MessageDialog(String message, MessageType type) {
@@ -35,20 +42,36 @@ public class MessageDialog extends Dialog<ButtonType> {
         buildUI();
     }
 
+    /*
+    Name: Build UI
+    Arguments: None
+    Returns: Void
+    Description:
+    This method is responsible for constructing and initializing the dialog.
+     */
     private void buildUI() {
         Pane pane = createVBoxPane();
         getDialogPane().setContent(pane);
 
+        // Attempt to apply dialog style sheet to the UI
         try {
             getDialogPane().getScene().getStylesheets().add(getClass().getResource("/styles/library-dialog.css").toExternalForm());
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+        // This ensures the clicking "X" will close the dialog
         Window window = getDialogPane().getScene().getWindow();
         window.setOnCloseRequest(event -> window.hide());
     }
 
+    /*
+    Name: Create VBox Pane
+    Arguments: None
+    Returns: Pane
+    Description:
+    This method constructs a VBox with all the dialog components.
+     */
     public Pane createVBoxPane() {
         VBox pane = new VBox();
         pane.alignmentProperty().setValue(Pos.CENTER);
@@ -61,7 +84,6 @@ public class MessageDialog extends Dialog<ButtonType> {
         confirmLabel.setTextAlignment(TextAlignment.CENTER);
 
         Button okayButton = new Button("Okay");
-
         okayButton.setPrefWidth(150);
 
         okayButton.setOnAction(event ->

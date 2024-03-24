@@ -15,7 +15,14 @@ import javafx.stage.Window;
 
 import java.util.Objects;
 
-
+/*
+Project By: Elise Kidroske
+Class: Software Development I CEN-3024C
+Date: 03/24/2024
+Name: Confirmation Dialog
+Description:
+This dialog is used to get a confirmation from the user to delete a book from the database.
+ */
 public class ConfirmationDialog extends Dialog<ButtonType> {
     private final String message;
 
@@ -26,20 +33,36 @@ public class ConfirmationDialog extends Dialog<ButtonType> {
         buildUI();
     }
 
+    /*
+    Name: Build UI
+    Arguments: None
+    Returns: Void
+    Description:
+    This method is responsible for constructing and initializing the dialog.
+     */
     private void buildUI() {
         Pane pane = createVBoxPane();
         getDialogPane().setContent(pane);
 
+        // Attempt to apply dialog style sheet to the UI
         try {
             getDialogPane().getScene().getStylesheets().add(getClass().getResource("/styles/library-dialog.css").toExternalForm());
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+        // This ensures the clicking "X" will close the dialog
         Window window = getDialogPane().getScene().getWindow();
         window.setOnCloseRequest(event -> window.hide());
     }
 
+    /*
+    Name: Create VBox Pane
+    Arguments: None
+    Returns: Pane
+    Description:
+    This method constructs a VBox with all the dialog components.
+     */
     public Pane createVBoxPane() {
         VBox pane = new VBox();
         pane.alignmentProperty().setValue(Pos.CENTER);

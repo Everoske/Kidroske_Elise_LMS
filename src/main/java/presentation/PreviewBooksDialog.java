@@ -17,6 +17,15 @@ import javafx.stage.Window;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/*
+Project By: Elise Kidroske
+Class: Software Development I CEN-3024C
+Date: 03/24/2024
+Name: Preview Books Dialog
+Description:
+This dialog is used to display books the user provided to add to the library database.
+It asks them for confirmation before handing off control back to the controller layer.
+ */
 public class PreviewBooksDialog extends Dialog<ButtonType> {
     private ListView<Book> booksList;
     private final ObservableList<Book> observableBooks;
@@ -28,22 +37,40 @@ public class PreviewBooksDialog extends Dialog<ButtonType> {
         buildUI();
     }
 
+    /*
+    Name: Build UI
+    Arguments: None
+    Returns: Void
+    Description:
+    This method is responsible for constructing and initializing the dialog.
+     */
     private void buildUI() {
         Pane pane = createVBoxPane();
         getDialogPane().setContent(pane);
+
+        // Initialize Book List to display new books
         booksList.setCellFactory(new BookCellFactory());
         booksList.setItems(observableBooks);
 
+        // Attempt to apply dialog style sheet to the UI
         try {
             getDialogPane().getScene().getStylesheets().add(getClass().getResource("/styles/library-dialog.css").toExternalForm());
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+        // This ensures the clicking "X" will close the dialog
         Window window = getDialogPane().getScene().getWindow();
         window.setOnCloseRequest(event -> window.hide());
     }
 
+    /*
+    Name: Create VBox Pane
+    Arguments: None
+    Returns: Pane
+    Description:
+    This method constructs a VBox with all the dialog components.
+     */
     public Pane createVBoxPane() {
         VBox pane = new VBox();
         pane.alignmentProperty().setValue(Pos.CENTER);
@@ -76,7 +103,6 @@ public class PreviewBooksDialog extends Dialog<ButtonType> {
 
         pane.setSpacing(10);
         buttonsBox.setSpacing(10);
-
 
         buttonsBox.getChildren().add(confirmButton);
         buttonsBox.getChildren().add(cancelButton);
