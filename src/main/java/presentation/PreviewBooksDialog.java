@@ -34,6 +34,12 @@ public class PreviewBooksDialog extends Dialog<ButtonType> {
         booksList.setCellFactory(new BookCellFactory());
         booksList.setItems(observableBooks);
 
+        try {
+            getDialogPane().getScene().getStylesheets().add(getClass().getResource("/styles/library-dialog.css").toExternalForm());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         Window window = getDialogPane().getScene().getWindow();
         window.setOnCloseRequest(event -> window.hide());
     }

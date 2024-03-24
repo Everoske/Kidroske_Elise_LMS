@@ -39,6 +39,12 @@ public class MessageDialog extends Dialog<ButtonType> {
         Pane pane = createVBoxPane();
         getDialogPane().setContent(pane);
 
+        try {
+            getDialogPane().getScene().getStylesheets().add(getClass().getResource("/styles/library-dialog.css").toExternalForm());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         Window window = getDialogPane().getScene().getWindow();
         window.setOnCloseRequest(event -> window.hide());
     }

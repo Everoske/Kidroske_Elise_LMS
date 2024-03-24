@@ -233,7 +233,7 @@ public class LibraryController implements IBookController {
 
         ButtonType result = confirmationDialog.getResult();
 
-        if (result.equals(ButtonType.OK)) {
+        if (result != null && result.equals(ButtonType.OK)) {
             libraryCore.removeBookFromCollection(book, this);
         }
     }
@@ -270,7 +270,7 @@ public class LibraryController implements IBookController {
         previewBooks.showAndWait();
 
         ButtonType result = previewBooks.getResult();
-        if (result.equals(ButtonType.OK)) {
+        if (result != null && result.equals(ButtonType.OK)) {
             libraryCore.addBooksToDatabase(newBooks, this);
         }
     }
