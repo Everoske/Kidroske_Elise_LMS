@@ -14,7 +14,6 @@ import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.Date;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -63,15 +62,27 @@ public class LibraryCore {
         bookController.invokePreview(books);
     }
 
+    /*
+    Name: Get Books From Database
+    Arguments: SQLForm representing connection information for external database, IBookController representing controller
+    Returns: Void
+    Description:
+    Gets Book objects from an external database provided by the user
+     */
     public void getBooksFromDatabase(SQLForm form, IBookController bookController) {
+        // Used to handle external database connections
         ExternalSQLHandler handler = new ExternalSQLHandler();
+
+        // Read books from provided database
         ArrayList<Book> books = handler.getBooksFromDatabase(form);
 
+        // If no books are processed, inform Controller and return
         if (books == null || books.isEmpty()) {
             bookController.invokeError("Unable to read any books from database.");
             return;
         }
 
+        // Books successfully read, send them to Controller for preview
         bookController.invokePreview(books);
     }
 

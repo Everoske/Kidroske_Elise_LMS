@@ -7,6 +7,16 @@ import domain.BookStatus;
 import java.sql.*;
 import java.util.ArrayList;
 
+/*
+Project By: Elise Kidroske
+Class: Software Development I CEN-3024C
+Date: 04/07/2024
+Name: External SQL Handler
+Description:
+Responsible for handling data retrieval operations from external
+user-provided databases. Requires the user of an SQL Form to read
+books from a database
+ */
 public class ExternalSQLHandler {
     /*
     Name: Get Books MySql
@@ -107,6 +117,13 @@ public class ExternalSQLHandler {
         return books;
     }
 
+    /*
+    Name: Get Books From Database
+    Arguments: SQLForm form with connection information
+    Returns: ArrayList<Book> representing all books from an external database
+    Description:
+    Processes the SQLForm and either returns books from a MySQL database or an SQLite database
+     */
     public ArrayList<Book> getBooksFromDatabase(SQLForm form) {
         if (form.getSourceType().equals(SQLSourceType.MYSQL)) {
             return getBooksMySQL(form.getDataSource(), form.getDatabaseName(),

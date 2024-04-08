@@ -73,6 +73,8 @@ public class ConfirmationDialog extends Dialog<ButtonType> {
 
         ImageView iconView = new ImageView();
         iconView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/trash-image-100.png"))));
+
+        // When clicked, an attribute dialog will open giving information about the icon's source
         iconView.setOnMouseClicked(mouseEvent -> {
             MessageDialog attributionDialog = new MessageDialog(
                     "Trash Icon by Icons8\nSource: https://icons8.com/icon/pu2MfAM7qtF0/trash",

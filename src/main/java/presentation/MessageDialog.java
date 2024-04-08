@@ -28,6 +28,7 @@ public class MessageDialog extends Dialog<ButtonType> {
     public MessageDialog(String message, Image icon) {
         super();
         this.message = message;
+        // If an Image is given, the message dialog is an attribution dialog
         this.type = MessageType.ATTRIBUTION;
         this.setTitle("Attribution");
         this.icon = icon;
@@ -86,6 +87,9 @@ public class MessageDialog extends Dialog<ButtonType> {
         Label confirmLabel = new Label(message);
         ImageView iconView = new ImageView(icon);
         if (type != MessageType.ATTRIBUTION) {
+            // If this is not an attribution dialog, set the on click listener
+            // for the image to open an attribution dialog with the respective
+            // information for each image
             String attributionString = type == MessageType.INFORMATIVE ?
                     "Idea Icon by Icons8\nSource: https://icons8.com/icon/67370/idea" :
                     "Cancel Icon by Icons8\nSource: https://icons8.com/icon/97743/cancel";
@@ -101,8 +105,6 @@ public class MessageDialog extends Dialog<ButtonType> {
         confirmLabel.prefWidth(300);
         confirmLabel.prefHeight(300);
         confirmLabel.setTextAlignment(TextAlignment.CENTER);
-
-
 
         Button okayButton = new Button("Okay");
         okayButton.setPrefWidth(150);

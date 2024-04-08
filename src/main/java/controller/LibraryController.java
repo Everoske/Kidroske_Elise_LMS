@@ -254,14 +254,25 @@ public class LibraryController implements IBookController {
         }
     }
 
-    // TODO: Implement External Database Access
+    /*
+    Name: On Add Books From Database Click
+    Arguments: ActionEvent on click event
+    Returns: Void
+    Description:
+    Prompts the user to enter the connection information to an external database.
+    Tells application layer to attempt connecting and reading from the external
+    database to retrieve Book objects
+     */
     public void onAddBooksFromDatabaseClick(ActionEvent event) {
+        // Open a form for the user to enter connection information to an external database
         DatabaseFormDialog databaseForm = new DatabaseFormDialog();
         databaseForm.showAndWait();
 
         if (databaseForm.getResult() == ButtonType.OK) {
+            // Try and get an SQL Form from the database form dialog
             try {
                 SQLForm form = (SQLForm) databaseForm.getDialogPane().getUserData();
+                // Tell the application layer to attempt to read from the given database
                 libraryCore.getBooksFromDatabase(form, this);
             } catch (Exception e) {
                 this.invokeError("There was an issue processing your form. Please try again.");

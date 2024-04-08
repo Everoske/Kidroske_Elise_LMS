@@ -81,6 +81,7 @@ public class PreviewBooksDialog extends Dialog<ButtonType> {
 
         ImageView iconView = new ImageView();
         iconView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/book-image-100.png"))));
+        // If clicked, show source image on the icon in an attribution dialog
         iconView.setOnMouseClicked(mouseEvent -> {
             MessageDialog attributionDialog = new MessageDialog(
                     "Book Icon by Icons8\nSource: https://icons8.com/icon/XLa4HP4kJj7b/book",
