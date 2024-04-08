@@ -157,7 +157,7 @@ public class LibraryCore {
 
         // Change Status and set due date to a string literal null
         book.setBookStatus(BookStatus.CHECKED_IN);
-        book.setDueDate("null");
+        book.setDueDate("");
 
         // Tell Database layer to update book
         boolean bookUpdated = databaseManager.updateBook(book);
