@@ -1,4 +1,4 @@
-Dracula,54312314,Bram Stoker,Horror,CHECKED_IN,NULL
-The Fall of The House of Usher,672731323,Edgar Allan Poe,Horror,CHECKED_OUT,2024-03-29
-To Kill a Mockingbird,7123012,Harper Lee,Law,CHECKED_IN,NULL
-1984,432312313,George Orwell,Science Fiction,CHECKED_OUT,2024-04-07
+Dracula,Bram Stoker,Horror,CHECKED_IN,NULL
+The Fall of The House of Usher,Edgar Allan Poe,Horror,CHECKED_OUT,2024-03-29
+To Kill a Mockingbird,Harper Lee,Law,CHECKED_IN,NULL
+1984,George Orwell,Science Fiction,CHECKED_OUT,2024-04-07

@@ -52,6 +52,7 @@ public class DatabaseManager {
                 BookStatus bookStatus = BookStatus.valueOf(bookStatusString);
                 String dueDate = resultSet.getString(BookColumns.DUE_DATE);
 
+                // Set the due date value
                 if (dueDate != null) {
                     books.add(new Book(barcode, title, author, genre, bookStatus, dueDate));
                 } else {

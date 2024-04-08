@@ -2,6 +2,8 @@ package application;
 
 import controller.IBookController;
 import database.DatabaseManager;
+import database.ExternalSQLHandler;
+import database.SQLForm;
 import domain.Book;
 import domain.BookStatus;
 
@@ -58,6 +60,18 @@ public class LibraryCore {
         }
 
         // Send books to the Controller for preview
+        bookController.invokePreview(books);
+    }
+
+    public void getBooksFromDatabase(SQLForm form, IBookController bookController) {
+        ExternalSQLHandler handler = new ExternalSQLHandler();
+        ArrayList<Book> books = handler.getBooksFromDatabase(form);
+
+        if (books == null || books.isEmpty()) {
+            bookController.invokeError("Unable to read any books from database.");
+            return;
+        }
+
         bookController.invokePreview(books);
     }
 

@@ -1,12 +1,10 @@
 package controller;
 
 import application.LibraryCore;
+import database.SQLForm;
 import domain.Book;
 import javafx.scene.control.Label;
-import presentation.ConfirmationDialog;
-import presentation.MessageDialog;
-import presentation.MessageType;
-import presentation.PreviewBooksDialog;
+import presentation.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -258,6 +256,14 @@ public class LibraryController implements IBookController {
 
     // TODO: Implement External Database Access
     public void onAddBooksFromDatabaseClick(ActionEvent event) {
+        DatabaseFormDialog databaseForm = new DatabaseFormDialog();
+        databaseForm.showAndWait();
+
+        SQLForm form = databaseForm.getResult();
+
+        if (form != null) {
+            libraryCore.getBooksFromDatabase(form, this);
+        }
     }
 
     /*
