@@ -92,7 +92,7 @@ public class DatabaseManager {
                 // If due date is an empty string, set the value to null in the database
                 checkBook.setNull(2, Types.DATE);
             } else {
-                checkBook.setDate(2, Date.valueOf(book.getDueDate()));
+                checkBook.setString(2, book.getDueDate());
             }
 
             // Set the barcode to search for
@@ -177,7 +177,7 @@ public class DatabaseManager {
                 if (book.getDueDate().isEmpty()) {
                     insertBook.setNull(5, Types.DATE);
                 } else {
-                    insertBook.setDate(5, Date.valueOf(book.getDueDate()));
+                    insertBook.setString(5, book.getDueDate());
                 }
 
                 // Adds the new insert statement to the group statement
