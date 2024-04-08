@@ -22,19 +22,19 @@ public class PseudoDatabase {
         bookCollection = new HashMap<>();
 
         // Instantiate the pseudo database with a hardcoded collection of books
-        bookCollection.put(0, new Book(0, "Cinder", "111231333",
+        bookCollection.put(0, new Book(0, "Cinder",
                 "Marissa Meyer", "Science Fiction", BookStatus.CHECKED_IN));
-        bookCollection.put(1, new Book(1, "Scarlet", "1441823333",
+        bookCollection.put(1, new Book(1, "Scarlet",
                 "Marissa Meyer", "Science Fiction", BookStatus.CHECKED_OUT, "2024-04-24"));
-        bookCollection.put(2, new Book(2, "Cress", "55522223333",
+        bookCollection.put(2, new Book(2, "Cress",
                 "Marissa Meyer", "Science Fiction", BookStatus.CHECKED_IN));
-        bookCollection.put(3, new Book(3, "Winter", "7722223663",
+        bookCollection.put(3, new Book(3, "Winter",
                 "Marissa Meyer", "Science Fiction", BookStatus.CHECKED_OUT, "2024-03-07"));
-        bookCollection.put(4, new Book(4, "Game Programming Algorithms and Techniques", "17465643423",
+        bookCollection.put(4, new Book(4, "Game Programming Algorithms and Techniques",
                 "Sanjay Madhav", "Non-Fiction", BookStatus.CHECKED_OUT, "2024-03-14"));
-        bookCollection.put(5, new Book(5, "Game Programming Patterns", "9999999999",
+        bookCollection.put(5, new Book(5, "Game Programming Patterns",
                 "Robert Nystrom", "Non-Fiction", BookStatus.CHECKED_IN));
-        bookCollection.put(6, new Book(6, "Salt to the Sea", "37895345353",
+        bookCollection.put(6, new Book(6, "Salt to the Sea",
                 "Ruta Sepetys", "Historical Fiction", BookStatus.CHECKED_IN));
     }
 
@@ -48,7 +48,7 @@ public class PseudoDatabase {
     Returns false otherwise
      */
     public boolean updateBook(Book book) {
-        int primaryKey = book.getBookId();
+        int primaryKey = book.getBarcode();
 
         // If the key does not exist, return false
         if (!bookCollection.containsKey(primaryKey)) {
@@ -72,7 +72,7 @@ public class PseudoDatabase {
      */
     public boolean deleteBook(Book book) {
         // Represents the primary key in the database
-        int primaryKey = book.getBookId();
+        int primaryKey = book.getBarcode();
 
         // If the database does not have the key, return false
         if (!bookCollection.containsKey(primaryKey)) {
@@ -96,11 +96,11 @@ public class PseudoDatabase {
     public boolean insertBook(Book book) {
         // Find the next primary key and assign it to the book
         int primaryKey = nextPrimaryKey();
-        book.setBookId(primaryKey);
+        book.setBarcode(primaryKey);
 
         // Add the book to the database and return true if successful
-        bookCollection.put(book.getBookId(), book);
-        return bookCollection.containsKey(book.getBookId());
+        bookCollection.put(book.getBarcode(), book);
+        return bookCollection.containsKey(book.getBarcode());
     }
 
     /*
@@ -138,9 +138,9 @@ public class PseudoDatabase {
     Description:
     Retrieves a book by its barcode using a linear search
      */
-    public Book queryByBarcode(String barcode) {
+    public Book queryByBarcode(int barcode) {
         for (Book book : bookCollection.values()) {
-            if (book.getBarcode().equalsIgnoreCase(barcode)) {
+            if (book.getBarcode() == barcode) {
                 return book;
             }
         }

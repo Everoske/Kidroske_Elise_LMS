@@ -191,7 +191,7 @@ public class LibraryCore {
     Description:
     Searches for a book using its barcode
      */
-    public Book findBookByBarcode(String barcode) {
+    public Book findBookByBarcode(int barcode) {
         return databaseManager.searchByBarcode(barcode);
     }
 
@@ -270,8 +270,8 @@ public class LibraryCore {
     Checks to ensure the file is in the correct format using a regular expression
      */
     private boolean validateFormat(String line) {
-        // This pattern matches title,barcode,author,genre,checked_status
-        Pattern pattern = Pattern.compile("[^,;]+,[0-9]+,[^,;]+,[^,;]+,[^,;]+,[^,;]*");
+        // This pattern matches title,author,genre,checked_status
+        Pattern pattern = Pattern.compile("[^,;]+,[^,;]+,[^,;]+,[^,;]+,[^,;]*");
         Matcher matcher = pattern.matcher(line);
         return matcher.find();
     }
@@ -289,7 +289,7 @@ public class LibraryCore {
         // Split string using commas as the delimiter
         String[] parameters = bookString.split(",");
         // Convert the string book status to the enum book status
-        BookStatus bookStatus = stringToBookStatus(parameters[4]);
+        BookStatus bookStatus = stringToBookStatus(parameters[3]);
 
         // Books must have a Book Status
         if (bookStatus == null) {
@@ -297,19 +297,19 @@ public class LibraryCore {
         }
 
         // Some books will have a due date, check if it exists
-        if (parameters.length > 5) {
-            String dateString = parameters[5];
+        if (parameters.length > 4) {
+            String dateString = parameters[4];
 
             // Ensure the string provided can be converted into a LocalDate object
             LocalDate dueDate = parseLocalDate(dateString);
             if (dueDate != null) {
                 // Returns a book with a due date
-                return  new Book(-1, parameters[0], parameters[1], parameters[2], parameters[3], bookStatus, dateString);
+                return  new Book(-1, parameters[0], parameters[1], parameters[2],  bookStatus, dateString);
             }
         }
 
         // Returns a book without a due date
-        return new Book(-1, parameters[0], parameters[1], parameters[2], parameters[3], bookStatus);
+        return new Book(-1, parameters[0], parameters[1], parameters[2], bookStatus);
     }
 
     /*

@@ -31,7 +31,7 @@ public class BookCellFactory implements Callback<ListView<Book>, ListCell<Book>>
                 if (empty || book == null) {
                     setText(null);
                 } else {
-                    setText(book.getTitle() + " | " + book.getBarcode() + " | " + book.getAuthor());
+                    setText(book.getBarcode() + " | " + book.getTitle() + " | " + book.getAuthor());
                 }
             }
         };

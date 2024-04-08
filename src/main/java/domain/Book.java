@@ -9,34 +9,32 @@ Description:
 Represents an instance of a book in the library's collection.
  */
 public class Book {
-    private int bookId;
+    private int barcode;
     private String title;
-    private String barcode;
     private String author;
     private String genre;
     private BookStatus bookStatus;
     private String dueDate;
 
-    public Book(int bookId, String title, String barcode, String author, String genre, BookStatus bookStatus) {
-        this(bookId, title, barcode, author, genre, bookStatus, "");
+    public Book(int barcode, String title, String author, String genre, BookStatus bookStatus) {
+        this(barcode, title, author, genre, bookStatus, "");
     }
 
-    public Book(int bookId, String title, String barcode, String author, String genre, BookStatus bookStatus, String dueDate) {
-        this.bookId = bookId;
-        this.title = title;
+    public Book(int barcode, String title, String author, String genre, BookStatus bookStatus, String dueDate) {
         this.barcode = barcode;
+        this.title = title;
         this.author = author;
         this.genre = genre;
         this.bookStatus = bookStatus;
         this.dueDate = dueDate;
     }
 
-    public int getBookId() {
-        return bookId;
+    public int getBarcode() {
+        return barcode;
     }
 
-    public void setBookId(int bookId) {
-        this.bookId = bookId;
+    public void setBarcode(int barcode) {
+        this.barcode = barcode;
     }
 
     public String getTitle() {
@@ -45,14 +43,6 @@ public class Book {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getBarcode() {
-        return barcode;
-    }
-
-    public void setBarcode(String barcode) {
-        this.barcode = barcode;
     }
 
     public String getAuthor() {

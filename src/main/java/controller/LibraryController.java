@@ -40,7 +40,6 @@ public class LibraryController implements IBookController {
     public TextField removeBookByBarcode;
     @FXML
     public TextField checkBooksField;
-
     @FXML
     public Label bookTitleText;
     @FXML
@@ -141,7 +140,14 @@ public class LibraryController implements IBookController {
             if (!bookTitle.isEmpty()) {
                 book = libraryCore.findBookByTitle(bookTitle);
             } else if (!bookBarcode.isEmpty()) {
-                book = libraryCore.findBookByBarcode(bookBarcode);
+                // Attempt to parse an integer from the user-provided barcode
+                try {
+                    int barcode = Integer.parseInt(bookBarcode);
+                    book = libraryCore.findBookByBarcode(barcode);
+                } catch (NumberFormatException e) {
+                    this.invokeError("Barcode must be an numeric value.");
+                    return;
+                }
             } else {
                 // No book was provided
                 return;
@@ -281,7 +287,7 @@ public class LibraryController implements IBookController {
      */
     private void setBookInformation(Book book) {
         bookTitleText.setText(book.getTitle());
-        bookBarcodeText.setText(book.getBarcode());
+        bookBarcodeText.setText(String.valueOf(book.getBarcode()));
         bookAuthorText.setText(book.getAuthor());
         bookGenreText.setText(book.getGenre());
         bookStatusText.setText(book.getBookStatus().toString());
@@ -375,7 +381,7 @@ public class LibraryController implements IBookController {
         // Attempt to store selected book's id
         int selectedId = -1;
         if (selectedBook != null) {
-            selectedId = selectedBook.getBookId();
+            selectedId = selectedBook.getBarcode();
         }
 
         // Clear and update observable list
@@ -385,7 +391,7 @@ public class LibraryController implements IBookController {
         // If selected book id was caught, find it in updated books and display it
         if (selectedId > -1) {
             for (Book book : observableBooks) {
-                if (selectedId == book.getBookId()) {
+                if (selectedId == book.getBarcode()) {
                     int index = bookList.getItems().indexOf(book);
                     bookList.getSelectionModel().select(index);
                     bookList.getFocusModel().focus(index);

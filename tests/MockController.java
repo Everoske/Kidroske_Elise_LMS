@@ -65,7 +65,15 @@ public class MockController implements IBookController {
      */
     public int removeBookByBarcode(String barcode) {
         int numberBooksBefore = libraryCore.getLibraryBooks().size();
-        Book book = libraryCore.findBookByBarcode(barcode);
+        Book book;
+
+        try {
+            int barcodeNumber = Integer.parseInt(barcode);
+            book = libraryCore.findBookByBarcode(barcodeNumber);
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+
         if (book == null) {
             return 0;
         }

@@ -101,7 +101,7 @@ public class DatabaseManager {
     Description:
     Retrieves a book from the database based on its barcode
      */
-    public Book searchByBarcode(String barcode) {
+    public Book searchByBarcode(int barcode) {
         return database.queryByBarcode(barcode);
     }
 }
