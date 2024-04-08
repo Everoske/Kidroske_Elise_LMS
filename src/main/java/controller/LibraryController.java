@@ -259,10 +259,13 @@ public class LibraryController implements IBookController {
         DatabaseFormDialog databaseForm = new DatabaseFormDialog();
         databaseForm.showAndWait();
 
-        SQLForm form = databaseForm.getResult();
-
-        if (form != null) {
-            libraryCore.getBooksFromDatabase(form, this);
+        if (databaseForm.getResult() == ButtonType.OK) {
+            try {
+                SQLForm form = (SQLForm) databaseForm.getDialogPane().getUserData();
+                libraryCore.getBooksFromDatabase(form, this);
+            } catch (Exception e) {
+                this.invokeError("There was an issue processing your form. Please try again.");
+            }
         }
     }
 

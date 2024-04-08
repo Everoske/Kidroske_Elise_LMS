@@ -20,7 +20,7 @@ import java.io.File;
 import java.sql.SQLType;
 import java.util.Objects;
 
-public class DatabaseFormDialog extends Dialog<SQLForm> {
+public class DatabaseFormDialog extends Dialog<ButtonType> {
 
     private TextField dbNameField;
     private RadioButton mySQL;
@@ -71,6 +71,12 @@ public class DatabaseFormDialog extends Dialog<SQLForm> {
 
         ImageView iconView = new ImageView();
         iconView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/add-database-100.png"))));
+        iconView.setOnMouseClicked(mouseEvent -> {
+            MessageDialog attributionDialog = new MessageDialog(
+                    "Add Database Icon by Icons8\nSource: https://icons8.com/icon/pu2MfAM7qtF0/trash",
+                    iconView.getImage());
+            attributionDialog.show();
+        });
         iconView.prefHeight(50);
         iconView.prefWidth(300);
 
@@ -208,13 +214,14 @@ public class DatabaseFormDialog extends Dialog<SQLForm> {
         {
             SQLForm form = getSQLForm();
             if (form != null) {
-                setResult(form);
+                setResult(ButtonType.OK);
+                getDialogPane().setUserData(form);
                 close();
             }
         });
 
         cancelButton.setOnAction(event -> {
-            setResult(null);
+            setResult(ButtonType.CANCEL);
             close();
         });
 

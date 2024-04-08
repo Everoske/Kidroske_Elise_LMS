@@ -1,10 +1,7 @@
 package presentation;
 
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -26,6 +23,17 @@ public class MessageDialog extends Dialog<ButtonType> {
     private final String message;
     private final MessageType type;
     private final Image icon;
+
+
+    public MessageDialog(String message, Image icon) {
+        super();
+        this.message = message;
+        this.type = MessageType.ATTRIBUTION;
+        this.setTitle("Attribution");
+        this.icon = icon;
+
+        buildUI();
+    }
 
     public MessageDialog(String message, MessageType type) {
         super();
@@ -77,11 +85,24 @@ public class MessageDialog extends Dialog<ButtonType> {
         pane.alignmentProperty().setValue(Pos.CENTER);
         Label confirmLabel = new Label(message);
         ImageView iconView = new ImageView(icon);
+        if (type != MessageType.ATTRIBUTION) {
+            String attributionString = type == MessageType.INFORMATIVE ?
+                    "Idea Icon by Icons8\nSource: https://icons8.com/icon/67370/idea" :
+                    "Cancel Icon by Icons8\nSource: https://icons8.com/icon/97743/cancel";
+            iconView.setOnMouseClicked(mouseEvent -> {
+                MessageDialog attributionDialog = new MessageDialog(
+                        attributionString,
+                        iconView.getImage());
+                attributionDialog.show();
+            });
+        }
         iconView.prefHeight(50);
         iconView.prefWidth(50);
         confirmLabel.prefWidth(300);
         confirmLabel.prefHeight(300);
         confirmLabel.setTextAlignment(TextAlignment.CENTER);
+
+
 
         Button okayButton = new Button("Okay");
         okayButton.setPrefWidth(150);

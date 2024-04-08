@@ -71,7 +71,6 @@ public class ExternalSQLHandler {
 
         // Insert the user-provided table into the query
         String connectionString = "jdbc:sqlite:" + path;
-        System.out.println(connectionString);
 
         // Initialize a query string for all books in the database
         String selectString = "SELECT * FROM " + tableName;

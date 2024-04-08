@@ -10,5 +10,6 @@ Enum used for determining what type of message is being sent.
  */
 public enum MessageType {
     INFORMATIVE,
-    ERROR
+    ERROR,
+    ATTRIBUTION
 }

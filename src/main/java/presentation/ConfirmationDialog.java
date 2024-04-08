@@ -73,6 +73,12 @@ public class ConfirmationDialog extends Dialog<ButtonType> {
 
         ImageView iconView = new ImageView();
         iconView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/trash-image-100.png"))));
+        iconView.setOnMouseClicked(mouseEvent -> {
+            MessageDialog attributionDialog = new MessageDialog(
+                    "Trash Icon by Icons8\nSource: https://icons8.com/icon/pu2MfAM7qtF0/trash",
+                    iconView.getImage());
+            attributionDialog.show();
+        });
         iconView.prefHeight(50);
         iconView.prefWidth(50);
 
