@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Main-Class: controller.Launcher
+Class-Path: commons-lang3-3.12.0.jar javafx-fxml-17.0.2.jar javafx-graph
+ ics-17.0.2.jar plexus-build-api-0.0.7.jar sqlite-jdbc-3.45.2.0.jar java
+ fx-fxml-17.0.2-win.jar commons-io-2.11.0.jar maven-filtering-3.3.1.jar 
+ javafx-controls-17.0.2-win.jar javafx-graphics-17.0.2-win.jar protobuf-
+ java-3.25.1.jar javafx-controls-17.0.2.jar plexus-utils-3.5.1.jar javaf
+ x-base-17.0.2.jar plexus-interpolation-1.26.jar slf4j-simple-2.0.12.jar
+  javax.inject-1.jar javafx-base-17.0.2-win.jar maven-resources-plugin-3
+ .3.1.jar slf4j-api-2.0.12.jar mysql-connector-j-8.3.0.jar
+

@@ -19,7 +19,7 @@ information to and from the Application layer and updates
 the database accordingly.
  */
 public class DatabaseManager {
-    private final String CONNECTION_STRING = "jdbc:sqlite:library_database.db";
+    private final String CONNECTION_STRING = "jdbc:sqlite:data/library_database.db";
 
     public DatabaseManager() {
     }
