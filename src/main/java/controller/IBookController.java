@@ -34,14 +34,6 @@ public interface IBookController {
      */
     void updateContent(ArrayList<Book> updatedBooks);
 
-    /*
-    Name: Invoke Preview
-    Arguments: ArrayList<Book> representing new books from text file
-    Returns: Void
-    Description:
-    Used to show the user a preview of the books they would like to add
-     */
-
     /**
      * Used to display new books provided by the user before adding them to the
      * library database.

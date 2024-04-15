@@ -1,6 +1,5 @@
 package database;
 
-import database.BookColumns;
 import domain.Book;
 import domain.BookStatus;
 

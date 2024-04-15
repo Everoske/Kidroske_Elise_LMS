@@ -88,14 +88,6 @@ public class LibraryCore {
         bookController.invokeMessage("Books were added successfully.");
     }
 
-    /*
-    Name: Remove Book From Collection
-    Arguments: Book for the book to remove, IBookController representing controller
-    Returns: Void
-    Description:
-    Removes a Book from the library's collection database
-     */
-
     /**
      * Instructs the database layer to remove the provided Book from the library database.
      * @param book
@@ -249,16 +241,6 @@ public class LibraryCore {
         Matcher matcher = pattern.matcher(line);
         return matcher.find();
     }
-
-    /*
-    Name: Create Book From String
-    Argument: String for the book string
-    Returns: Book
-    Description:
-    Processes a String representation of a book into a Book object.
-    Returns null if unable to create a Book object
-    The book ID is -1 which is meant to be a placeholder for database insertion
-    */
 
     /**
      * Converts a String into a Book object.

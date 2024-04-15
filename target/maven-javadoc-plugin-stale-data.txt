@@ -1,0 +1,57 @@
+@options
+@packages
+@argfile
+--class-path
+'C:/Users/Owner/.m2/repository/org/openjfx/javafx-controls/17.0.2/javafx-controls-17.0.2.jar;C:/Users/Owner/.m2/repository/org/openjfx/javafx-graphics/17.0.2/javafx-graphics-17.0.2.jar;C:/Users/Owner/.m2/repository/org/openjfx/javafx-base/17.0.2/javafx-base-17.0.2.jar;C:/Users/Owner/.m2/repository/org/openjfx/javafx-fxml/17.0.2/javafx-fxml-17.0.2.jar;C:/Users/Owner/.m2/repository/org/apache/maven/plugins/maven-resources-plugin/3.3.1/maven-resources-plugin-3.3.1.jar;C:/Users/Owner/.m2/repository/org/codehaus/plexus/plexus-interpolation/1.26/plexus-interpolation-1.26.jar;C:/Users/Owner/.m2/repository/org/codehaus/plexus/plexus-utils/3.5.1/plexus-utils-3.5.1.jar;C:/Users/Owner/.m2/repository/org/apache/maven/shared/maven-filtering/3.3.1/maven-filtering-3.3.1.jar;C:/Users/Owner/.m2/repository/javax/inject/javax.inject/1/javax.inject-1.jar;C:/Users/Owner/.m2/repository/org/sonatype/plexus/plexus-build-api/0.0.7/plexus-build-api-0.0.7.jar;C:/Users/Owner/.m2/repository/commons-io/commons-io/2.11.0/commons-io-2.11.0.jar;C:/Users/Owner/.m2/repository/org/apache/commons/commons-lang3/3.12.0/commons-lang3-3.12.0.jar;C:/Users/Owner/.m2/repository/com/mysql/mysql-connector-j/8.3.0/mysql-connector-j-8.3.0.jar;C:/Users/Owner/.m2/repository/com/google/protobuf/protobuf-java/3.25.1/protobuf-java-3.25.1.jar;C:/Users/Owner/.m2/repository/org/xerial/sqlite-jdbc/3.45.2.0/sqlite-jdbc-3.45.2.0.jar;C:/Users/Owner/.m2/repository/org/slf4j/slf4j-api/2.0.12/slf4j-api-2.0.12.jar;C:/Users/Owner/.m2/repository/org/slf4j/slf4j-simple/2.0.12/slf4j-simple-2.0.12.jar'
+--module-path
+'C:/Users/Owner/.m2/repository/org/openjfx/javafx-graphics/17.0.2/javafx-graphics-17.0.2-win.jar;C:/Users/Owner/.m2/repository/org/openjfx/javafx-fxml/17.0.2/javafx-fxml-17.0.2-win.jar;C:/Users/Owner/.m2/repository/org/openjfx/javafx-controls/17.0.2/javafx-controls-17.0.2-win.jar;C:/Users/Owner/Documents/College_Files/Software_Development_1/Projects/Kidroske_Elise_LMS/target/classes;C:/Users/Owner/.m2/repository/org/openjfx/javafx-base/17.0.2/javafx-base-17.0.2-win.jar'
+--patch-module
+com.ekidroske.kidroske_elise_lms='C:/Users/Owner/Documents/College_Files/Software_Development_1/Projects/Kidroske_Elise_LMS/src/main/java'
+-encoding
+'UTF-8'
+-protected
+--module-source-path
+'C:/Users/Owner/Documents/College_Files/Software_Development_1/Projects/Kidroske_Elise_LMS/target/site/apidocs/src'
+-author
+-bottom
+'Copyright &#169; 2024. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'C:/Users/Owner/Documents/College_Files/Software_Development_1/Projects/Kidroske_Elise_LMS/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'Kidroske_Elise_LMS 1.0-SNAPSHOT API'
+-linkoffline
+'https://docs.oracle.com/en/java/javase/11/docs/api' 'C:/Users/Owner/Documents/College_Files/Software_Development_1/Projects/Kidroske_Elise_LMS/target/javadoc-bundle-options'
+-tag
+"result:a:Test assertion :"
+-use
+-version
+-windowtitle
+'Kidroske_Elise_LMS 1.0-SNAPSHOT API'
+controller
+database
+domain
+'C:/Users/Owner/Documents/College_Files/Software_Development_1/Projects/Kidroske_Elise_LMS/src/main/java/module-info.java'
+C:\Users\Owner\Documents\College_Files\Software_Development_1\Projects\Kidroske_Elise_LMS\target\site\apidocs\allclasses-index.html = 1713186793164
+C:\Users\Owner\Documents\College_Files\Software_Development_1\Projects\Kidroske_Elise_LMS\target\site\apidocs\allpackages-index.html = 1713186793167
+C:\Users\Owner\Documents\College_Files\Software_Development_1\Projects\Kidroske_Elise_LMS\target\site\apidocs\constant-values.html = 1713186793099
+C:\Users\Owner\Documents\College_Files\Software_Development_1\Projects\Kidroske_Elise_LMS\target\site\apidocs\copy.svg = 1713186793203
+C:\Users\Owner\Documents\College_Files\Software_Development_1\Projects\Kidroske_Elise_LMS\target\site\apidocs\element-list = 1713186793046
+C:\Users\Owner\Documents\College_Files\Software_Development_1\Projects\Kidroske_Elise_LMS\target\site\apidocs\help-doc.html = 1713186793199
+C:\Users\Owner\Documents\College_Files\Software_Development_1\Projects\Kidroske_Elise_LMS\target\site\apidocs\index-all.html = 1713186793186
+C:\Users\Owner\Documents\College_Files\Software_Development_1\Projects\Kidroske_Elise_LMS\target\site\apidocs\index.html = 1713186793191
+C:\Users\Owner\Documents\College_Files\Software_Development_1\Projects\Kidroske_Elise_LMS\target\site\apidocs\link.svg = 1713186793204
+C:\Users\Owner\Documents\College_Files\Software_Development_1\Projects\Kidroske_Elise_LMS\target\site\apidocs\member-search-index.js = 1713186793171
+C:\Users\Owner\Documents\College_Files\Software_Development_1\Projects\Kidroske_Elise_LMS\target\site\apidocs\module-search-index.js = 1713186793168
+C:\Users\Owner\Documents\College_Files\Software_Development_1\Projects\Kidroske_Elise_LMS\target\site\apidocs\overview-tree.html = 1713186793149
+C:\Users\Owner\Documents\College_Files\Software_Development_1\Projects\Kidroske_Elise_LMS\target\site\apidocs\package-search-index.js = 1713186793169
+C:\Users\Owner\Documents\College_Files\Software_Development_1\Projects\Kidroske_Elise_LMS\target\site\apidocs\script.js = 1713186793202
+C:\Users\Owner\Documents\College_Files\Software_Development_1\Projects\Kidroske_Elise_LMS\target\site\apidocs\search-page.js = 1713186793206
+C:\Users\Owner\Documents\College_Files\Software_Development_1\Projects\Kidroske_Elise_LMS\target\site\apidocs\search.html = 1713186793188
+C:\Users\Owner\Documents\College_Files\Software_Development_1\Projects\Kidroske_Elise_LMS\target\site\apidocs\search.js = 1713186793205
+C:\Users\Owner\Documents\College_Files\Software_Development_1\Projects\Kidroske_Elise_LMS\target\site\apidocs\stylesheet.css = 1713186793201
+C:\Users\Owner\Documents\College_Files\Software_Development_1\Projects\Kidroske_Elise_LMS\target\site\apidocs\tag-search-index.js = 1713186793172
+C:\Users\Owner\Documents\College_Files\Software_Development_1\Projects\Kidroske_Elise_LMS\target\site\apidocs\type-search-index.js = 1713186793170

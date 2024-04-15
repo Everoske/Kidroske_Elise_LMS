@@ -7,18 +7,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
-Project By: Elise Kidroske
-Class: Software Development I CEN-3024C
-Date: 03/01/2024
-Name: Database Manager
-Description:
-Represents the database layer of the application. This class
-directly interacts with the internal database. It also exchanges
-information to and from the Application layer and updates
-the database accordingly.
- */
-
 /**
  * This class represents the database layer of the library management system.
  * This class directly interacts with the internal library database. It also exchanges
@@ -146,14 +134,11 @@ public class DatabaseManager {
                     insertBook.setString(5, book.getDueDate());
                 }
 
-                // Adds the new insert statement to the group statement
                 insertBook.addBatch();
             }
 
-            // Executes the group transaction
             int [] batchResults = insertBook.executeBatch();
 
-            // Commit the final transaction
             connection.commit();
 
             int totalRowsAffected = 0;

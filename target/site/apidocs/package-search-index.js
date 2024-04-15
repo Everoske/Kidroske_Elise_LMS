@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"com.ekidroske.kidroske_elise_lms","l":"controller"},{"m":"com.ekidroske.kidroske_elise_lms","l":"database"},{"m":"com.ekidroske.kidroske_elise_lms","l":"domain"}];updateSearchResults();
