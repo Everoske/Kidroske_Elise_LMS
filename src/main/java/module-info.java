@@ -4,7 +4,9 @@ module com.ekidroske.kidroske_elise_lms {
     requires java.sql;
 
     opens view to javafx.fxml;
+    exports application;
     exports controller;
-    exports domain;
     exports database;
+    exports domain;
+    exports presentation;
 }

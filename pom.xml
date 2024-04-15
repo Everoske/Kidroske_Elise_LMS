@@ -159,7 +159,7 @@
                 <configuration>
                     <tags>
                         <tag>
-                            <name>result</name>
+                            <name>outcome</name>
                             <placement>a</placement>
                             <head>Test assertion :</head>
                         </tag>

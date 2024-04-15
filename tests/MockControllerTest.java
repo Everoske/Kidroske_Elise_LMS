@@ -25,7 +25,7 @@ class MockControllerTest {
 
     /**
      * Test ability to add books from a user-given text file
-     * @result Actual number of books added will equal the expected number of books added
+     * @outcome Actual number of books added will equal the expected number of books added
      */
     @org.junit.jupiter.api.Test
     @DisplayName("Add Books From File Test")
@@ -39,7 +39,7 @@ class MockControllerTest {
 
     /**
      * Test ability to remove books from a user-provided book title.
-     * @result Actual number of books removed should equal the expected number of books removed
+     * @outcome Actual number of books removed should equal the expected number of books removed
      */
     @org.junit.jupiter.api.Test
     @DisplayName("Remove Book by Title Test")
@@ -52,7 +52,7 @@ class MockControllerTest {
 
     /**
      * Test ability to remove books from a user-provided book barcode
-     * @result Actual number of books removed should equal the expected number of books removed
+     * @outcome Actual number of books removed should equal the expected number of books removed
      */
     @org.junit.jupiter.api.Test
     @DisplayName("Remove Book by Barcode Test")
@@ -65,7 +65,7 @@ class MockControllerTest {
 
     /**
      * Test ability to check in books from a user-provided book title
-     * @result Book object returned is not null. Book status equals checked in. Book due date equals empty.
+     * @outcome Book object returned is not null. Book status equals checked in. Book due date equals empty.
      */
     @org.junit.jupiter.api.Test
     @DisplayName("Check In Book Test")
@@ -79,7 +79,7 @@ class MockControllerTest {
 
     /**
      * Test ability to check out books from a user-provided book title
-     * @result Book object returned is not null. Book status equals checked out. Book due date is 4 weeks from current date.
+     * @outcome Book object returned is not null. Book status equals checked out. Book due date is 4 weeks from current date.
      */
     @org.junit.jupiter.api.Test
     @DisplayName("Check Out Book Test")

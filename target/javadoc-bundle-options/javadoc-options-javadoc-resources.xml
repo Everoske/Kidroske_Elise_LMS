@@ -2,7 +2,7 @@
 <javadocOptions>
   <tags>
     <tag>
-      <name>result</name>
+      <name>outcome</name>
       <head>Test assertion :</head>
       <placement>a</placement>
     </tag>
