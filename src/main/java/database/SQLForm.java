@@ -1,13 +1,9 @@
 package database;
 
-/*
-Project By: Elise Kidroske
-Class: Software Development I CEN-3024C
-Date: 04/07/2024
-Name: SQL Form
-Description:
-A data object used for transporting external database connection information from
-the user through the application. Used for accessing an external database
+/**
+ * This class represents a data object used for transporting external database connection
+ * information from the user to the application layer where it can be processed.
+ * @author Elise Kidroske
  */
 public class SQLForm {
     private final SQLSourceType sourceType;

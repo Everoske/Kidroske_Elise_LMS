@@ -15,13 +15,9 @@ import javafx.stage.Window;
 
 import java.util.Objects;
 
-/*
-Project By: Elise Kidroske
-Class: Software Development I CEN-3024C
-Date: 03/24/2024
-Name: Confirmation Dialog
-Description:
-This dialog is used to get a confirmation from the user to delete a book from the database.
+/**
+ * This class represents a dialog used to get a confirmation from the user.
+ * @author Elise Kidroske
  */
 public class ConfirmationDialog extends Dialog<ButtonType> {
     private final String message;
@@ -33,35 +29,45 @@ public class ConfirmationDialog extends Dialog<ButtonType> {
         buildUI();
     }
 
-    /*
-    Name: Build UI
-    Arguments: None
-    Returns: Void
-    Description:
-    This method is responsible for constructing and initializing the dialog.
+    /**
+     * This method is responsible for constructing and initializing the dialog.
      */
     private void buildUI() {
         Pane pane = createVBoxPane();
         getDialogPane().setContent(pane);
 
-        // Attempt to apply dialog style sheet to the UI
         try {
             getDialogPane().getScene().getStylesheets().add(getClass().getResource("/styles/library-dialog.css").toExternalForm());
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        // This ensures the clicking "X" will close the dialog
+        ensureXWillCloseDialog();
+    }
+
+    /**
+     * Ensures pressing the 'X' button will close the dialog.
+     */
+    private void ensureXWillCloseDialog() {
         Window window = getDialogPane().getScene().getWindow();
         window.setOnCloseRequest(event -> window.hide());
     }
 
-    /*
-    Name: Create VBox Pane
-    Arguments: None
-    Returns: Pane
-    Description:
-    This method constructs a VBox with all the dialog components.
+    /**
+     * Creates a message dialog providing attribution information on a given
+     * icon image.
+     * @param iconView ImageView containing the icon being attributed.
+     */
+    private void displayAttributeDialog(ImageView iconView) {
+        MessageDialog attributionDialog = new MessageDialog(
+                "Trash Icon by Icons8\nSource: https://icons8.com/icon/pu2MfAM7qtF0/trash",
+                iconView.getImage());
+        attributionDialog.show();
+    }
+
+    /**
+     * This method constructs the VBox containing all dialog components.
+     * @return Pane representing the assembled dialog.
      */
     public Pane createVBoxPane() {
         VBox pane = new VBox();
@@ -74,12 +80,8 @@ public class ConfirmationDialog extends Dialog<ButtonType> {
         ImageView iconView = new ImageView();
         iconView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/trash-image-100.png"))));
 
-        // When clicked, an attribute dialog will open giving information about the icon's source
         iconView.setOnMouseClicked(mouseEvent -> {
-            MessageDialog attributionDialog = new MessageDialog(
-                    "Trash Icon by Icons8\nSource: https://icons8.com/icon/pu2MfAM7qtF0/trash",
-                    iconView.getImage());
-            attributionDialog.show();
+            displayAttributeDialog(iconView);
         });
         iconView.prefHeight(50);
         iconView.prefWidth(50);

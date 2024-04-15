@@ -18,15 +18,11 @@ import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
-/*
-Project By: Elise Kidroske
-Class: Software Development I CEN-3024C
-Date: 03/24/2024
-Name: Library Controller
-Description:
-The purpose of this class is to manage the user interface and process user interactions.
-It implements IBookController, so it can manage the flow of information between the user and
-the application layer.
+/**
+ * This class processes and responds to user interaction with the user interface.
+ * This class manages the flow of information between the user and the application
+ * layer.
+ * @author Elise Kidroske
  */
 public class LibraryController implements IBookController {
 
@@ -56,25 +52,18 @@ public class LibraryController implements IBookController {
 
     private Book selectedBook;
 
-    /*
-    Name: Initialize
-    Arguments: None
-    Returns: Void
-    Description:
-    Initializes the application layer and handles setting up the UI and event listeners.
+    /**
+     * Initializes the application layer and the user interface components.
      */
     @FXML
     public void initialize() {
         libraryCore = new LibraryCore(StandardCharsets.UTF_8);
 
-        // Initialize the Observable Books List
         ArrayList<Book> books = new ArrayList<>();
         observableBooks = FXCollections.observableList(books);
 
-        // Set the Book Cell Factory for the Book List View
         bookList.setCellFactory(new BookCellFactory());
-        // If a Book is selected, display its information. Otherwise, clear any book information and set
-        // selected Book to null
+
         bookList.getSelectionModel().selectedItemProperty().addListener((observableValue, oldBook, newBook) -> {
             if (newBook != null) {
                 selectedBook = newBook;
@@ -84,61 +73,76 @@ public class LibraryController implements IBookController {
                 selectedBook = null;
             }
         });
-        // Initialize the Book List View with the observable book list
+
         bookList.getItems().addAll(observableBooks);
 
-        // Set Text Change listeners
-        removeBookByTitle.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            // If the new value is not empty, but the old value is empty, clear contents of
-            // the remove book by barcode field
-            if (oldValue.trim().isEmpty() || !newValue.trim().isEmpty()) {
-                removeBookByBarcode.setText("");
-                clearSelection();
-            }
+        removeBookByTitle.textProperty().addListener((observableValue, oldText, newText) -> {
+            setRelatedFieldEmpty(removeBookByBarcode, oldText, newText);
         });
 
-        removeBookByBarcode.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            // If the new value is not empty, but the old value is empty, clear contents of
-            // the remove book by title field
-            if (oldValue.trim().isEmpty() || !newValue.trim().isEmpty()) {
-                removeBookByTitle.setText("");
-                clearSelection();
-            }
+        removeBookByBarcode.textProperty().addListener((observableValue, oldText, newText) -> {
+            setRelatedFieldEmpty(removeBookByTitle, oldText, newText);
         });
 
-        // Clear selected book if something is typed into the check book field
-        checkBooksField.textProperty().addListener(((observableValue, oldValue, newValue) -> {
-            if (!newValue.trim().isEmpty()) {
-                clearSelection();
+        checkBooksField.textProperty().addListener(((observableValue, oldText, newText) -> {
+            boolean textAdded = !newText.trim().isEmpty();
+
+            if (textAdded) {
+                clearSelectedBook();
             }
         }));
     }
 
-    /*
-    Name: On Remove Book
-    Arguments: ActionEvent on click event
-    Returns: Void
-    Description:
-    Responds to user's request to delete book. Evaluates the information provided.
-    If the proper information is provided, it passes the request to the application layer.
-    Otherwise, it informs the user that information is missing.
+    /**
+     * Clears a related TextField when text is entered into the selected TextField.
+     * Also clears the selected book being displayed.
+     * @param relatedField TextField sibling of the selected TextField.
+     * @param oldText Text before the text was changed.
+     * @param newText Text added during text change.
+     */
+    private void setRelatedFieldEmpty(TextField relatedField, String oldText, String newText) {
+        boolean textAdded = !newText.trim().isEmpty();
+
+        if (textAdded) {
+            relatedField.setText("");
+            clearSelectedBook();
+        }
+    }
+
+    /**
+     * Selects a book and sets its focus if present in the ListView.
+     * @param selectedId Int barcode of book to set selected.
+     */
+    private void setSelectedBook(int selectedId) {
+        for (Book book : observableBooks) {
+            if (selectedId == book.getBarcode()) {
+                int index = bookList.getItems().indexOf(book);
+                bookList.getSelectionModel().select(index);
+                bookList.getFocusModel().focus(index);
+                selectedBook = bookList.getItems().get(index);
+                return;
+            }
+        }
+    }
+
+    /**
+     * Evaluates a user's request to delete a book. Attempts retrieval of a book object
+     * from the internal database. If the book exists, will seek user confirmation on the
+     * delete request.
+     * @param event On click event triggered by user.
      */
     public void onRemoveBook(ActionEvent event) {
         Book book;
 
-        // If a Book is selected in the Book List View, attempt to delete it
         if (selectedBook != null) {
             book = selectedBook;
         } else {
             String bookTitle = removeBookByTitle.getText().trim();
             String bookBarcode = removeBookByBarcode.getText().trim();
 
-            // Check if user provided a barcode or title
-            // Attempt to grab a book from the database
             if (!bookTitle.isEmpty()) {
                 book = libraryCore.findBookByTitle(bookTitle);
             } else if (!bookBarcode.isEmpty()) {
-                // Attempt to parse an integer from the user-provided barcode
                 try {
                     int barcode = Integer.parseInt(bookBarcode);
                     book = libraryCore.findBookByBarcode(barcode);
@@ -147,100 +151,79 @@ public class LibraryController implements IBookController {
                     return;
                 }
             } else {
-                // No book was provided
                 return;
             }
         }
 
-        // Book does not exist, inform the user
         if (book == null) {
             this.invokeError("This book does not match any books in the library's collection.");
             return;
         }
 
-        // Ask the user for confirmation to delete the book
         this.invokeDeleteConfirmation("Are you sure you want to delete " +
                 book.getTitle() + "\nfrom the library", book);
     }
 
-    /*
-    Name: On Check Out Books
-    Arguments: ActionEvent on click event
-    Returns: Void
-    Description:
-    Processes a user's request to check out a book
+    /**
+     * Responds to the user's request to check out a book. If the proper information is
+     * given, instructs the application layer to process the request.
+     * @param event On click event triggered by user.
      */
     public void onCheckOutBooks(ActionEvent event) {
         Book book;
 
-        // If a Book is selected in the Book List View, attempt to delete it
         if (selectedBook != null) {
             book = selectedBook;
         } else {
-            // Check if user provided a title and attempt to grab it from database
             String bookTitle = checkBooksField.getText().trim();
             if (bookTitle.isEmpty()) {
-                // No book was provided
                 return;
             }
 
             book = libraryCore.findBookByTitle(bookTitle);
         }
 
-        // Book does not exist, inform the user
         if (book == null) {
             this.invokeError("This book does not match any books in the library's collection.");
             return;
         }
 
-        // Pass of the request to the application layer
         libraryCore.checkOutBook(book, this);
     }
 
-    /*
-    Name: On Check In Books
-    Arguments: ActionEvent on click event
-    Returns: Void
-    Description:
-    Processes a user's request to check in a book
+    /**
+     * Responds to the user's request to check in a book. If the proper information is
+     * given, instructs the application layer to process the request.
+     * @param event On click event triggered by user.
      */
     public void onCheckInBooks(ActionEvent event) {
         Book book;
 
-        // If a Book is selected in the Book List View, attempt to delete it
         if (selectedBook != null) {
             book = selectedBook;
         } else {
-            // Check if user provided a title and attempt to grab it from database
             String bookTitle = checkBooksField.getText().trim();
             if (bookTitle.isEmpty()) {
-                // No book was provided
                 return;
             }
 
             book = libraryCore.findBookByTitle(bookTitle);
 
-            // Book does not exist, inform the user
             if (book == null) {
                 this.invokeError("The title you entered does not match any books in the library's collection.");
                 return;
             }
         }
 
-        // Pass of the request to the application layer
         libraryCore.checkInBook(book, this);
     }
 
-    /*
-    Name: On Add Books From File Click
-    Arguments: ActionEvent on click event
-    Returns: Void
-    Description:
-    Prompts the user to provide a text file using a file chooser. Tells application layer
-    to process the provided file for book objects.
+    /**
+     * Prompts user to provide a text file using a FileChooser. Instructs the application layer
+     * to process the provided file for Book objects.
+     * @param event On click event triggered by user.
      */
     public void onAddBooksFromFileClick(ActionEvent event) {
-        // Open a file chooser that exclusively looks for text files
         FileChooser fileChooser = new FileChooser();
 
         fileChooser.setTitle("Open Text File");
@@ -249,30 +232,23 @@ public class LibraryController implements IBookController {
         File selectedFile = fileChooser.showOpenDialog(null);
 
         if (selectedFile != null) {
-            // Tell the application layer to attempt to read from these files
             libraryCore.getBooksFromTextFile(selectedFile.getAbsolutePath(), this);
         }
     }
 
-    /*
-    Name: On Add Books From Database Click
-    Arguments: ActionEvent on click event
-    Returns: Void
-    Description:
-    Prompts the user to enter the connection information to an external database.
-    Tells application layer to attempt connecting and reading from the external
-    database to retrieve Book objects
+    /**
+     * Launches a dialog to obtain database connection information from the user
+     * for an external database. Instructs the application layer to attempt connection
+     * with the provided database to process Book objects.
+     * @param event On click event triggered by user.
      */
     public void onAddBooksFromDatabaseClick(ActionEvent event) {
-        // Open a form for the user to enter connection information to an external database
         DatabaseFormDialog databaseForm = new DatabaseFormDialog();
         databaseForm.showAndWait();
 
         if (databaseForm.getResult() == ButtonType.OK) {
-            // Try and get an SQL Form from the database form dialog
             try {
                 SQLForm form = (SQLForm) databaseForm.getDialogPane().getUserData();
-                // Tell the application layer to attempt to read from the given database
                 libraryCore.getBooksFromDatabase(form, this);
             } catch (Exception e) {
                 this.invokeError("There was an issue processing your form. Please try again.");
@@ -280,30 +256,22 @@ public class LibraryController implements IBookController {
         }
     }
 
-    /*
-    Name: On Display Books
-    Arguments: ActionEvent on click event
-    Returns: Void
-    Description:
-    Display the library's collection to the Book ListView
+    /**
+     * Displays the library's collection to the Book ListView.
+     * @param event On click event triggered by user.
      */
     public void onDisplayBooks(ActionEvent event) {
-        // Get books via application layer
         ArrayList<Book> books = libraryCore.getLibraryBooks();
-        // Clear observable books and add the updated books from the database
+
         observableBooks.clear();
         observableBooks.addAll(books);
 
-        // Set items in Book List View
         bookList.setItems(observableBooks);
     }
 
-    /*
-    Name: Set Book Information
-    Arguments: Book book to display
-    Returns: Void
-    Description:
-    Displays a book's information in the user interface.
+    /**
+     * Display's a book's information on the user interface.
+     * @param book Book to display.
      */
     private void setBookInformation(Book book) {
         bookTitleText.setText(book.getTitle());
@@ -314,12 +282,8 @@ public class LibraryController implements IBookController {
         bookDueDateText.setText(book.getDueDate());
     }
 
-    /*
-    Name: Clear Book Information
-    Arguments: None
-    Returns: Void
-    Description:
-    Removes all book information.
+    /**
+     * Removes information on a single Book object from the user interface.
      */
     private void clearBookInformation() {
         bookTitleText.setText("None");
@@ -330,25 +294,17 @@ public class LibraryController implements IBookController {
         bookDueDateText.setText("None");
     }
 
-    /*
-    Name: Clear Selection
-    Arguments: None
-    Returns: Void
-    Description:
-    Clears the selected book.
+    /**
+     * Clears the selected Book object and removes its focus.
      */
-    private void clearSelection() {
-        // Deselect book from Book List View and set Selected Book to null
+    private void clearSelectedBook() {
         bookList.getSelectionModel().clearSelection();
         selectedBook = null;
     }
 
-    /*
-    Name: Invoke Message
-    Arguments: String message
-    Returns: Void
-    Description:
-    Allows other classes to send a message to the user.
+    /**
+     * Displays a message to the user.
+     * @param message String message to display.
      */
     @Override
     public void invokeMessage(String message) {
@@ -356,12 +312,9 @@ public class LibraryController implements IBookController {
         messageDialog.show();
     }
 
-    /*
-    Name: Invoke Error
-    Arguments: String message
-    Returns: Void
-    Description:
-    Allows other classes to send an error message to the user.
+    /**
+     * Displays an error message to the user.
+     * @param message String message to display.
      */
     @Override
     public void invokeError(String message) {
@@ -369,12 +322,10 @@ public class LibraryController implements IBookController {
         errorDialog.show();
     }
 
-    /*
-    Name: Invoke Delete Confirmation
-    Arguments: String message, Book to delete
-    Returns: Void
-    Description:
-    Asks the user for confirmation before deleting a book from the database.
+    /**
+     * Asks the user for confirmation before deleting a book from the database.
+     * @param message String confirmation message to display.
+     * @param book Book object to be deleted.
      */
     @Override
     public void invokeDeleteConfirmation(String message, Book book) {
@@ -388,48 +339,31 @@ public class LibraryController implements IBookController {
         }
     }
 
-    /*
-    Name: Update Content
-    Arguments: ArrayList<Book> representing library collection
-    Returns: Void
-    Description:
-    Updates the list with the updated contents of the database.
-    In the final product, this list will be an observable list.
+    /**
+     * Updates the ListView with the updated contents of the library
+     * database.
+     * @param updatedBooks Book ArrayList of books from the library database.
      */
     @Override
     public void updateContent(ArrayList<Book> updatedBooks) {
-        // Attempt to store selected book's id
         int selectedId = -1;
         if (selectedBook != null) {
             selectedId = selectedBook.getBarcode();
         }
 
-        // Clear and update observable list
         observableBooks.clear();
         observableBooks.addAll(updatedBooks);
 
-        // If selected book id was caught, find it in updated books and display it
         if (selectedId > -1) {
-            for (Book book : observableBooks) {
-                if (selectedId == book.getBarcode()) {
-                    int index = bookList.getItems().indexOf(book);
-                    bookList.getSelectionModel().select(index);
-                    bookList.getFocusModel().focus(index);
-                    selectedBook = bookList.getItems().get(index);
-                    return;
-                }
-            }
+            setSelectedBook(selectedId);
         }
     }
 
-    /*
-    Name: Invoke Preview
-    Arguments: ArrayList<Book> representing new books from text file
-    Returns: Void
-    Description:
-    Shows the user books from a selected source and asks for
-    confirmation before adding the books to the database.
-    */
+    /**
+     * Displays new books provided by the user and asks the user
+     * for confirmation before adding them to the library database.
+     * @param newBooks Book ArrayList representing new books to add to library.
+     */
     @Override
     public void invokePreview(ArrayList<Book> newBooks) {
         PreviewBooksDialog previewBooks = new PreviewBooksDialog(newBooks);

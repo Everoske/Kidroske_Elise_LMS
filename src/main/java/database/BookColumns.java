@@ -1,13 +1,9 @@
 package database;
 
-/*
-Project By: Elise Kidroske
-Class: Software Development I CEN-3024C
-Date: 04/07/2024
-Name: Book Columns
-Description:
-This class contains static Strings used for accessing
-database columns
+/**
+ * This class contains static Strings used for accessing
+ * database columns in the library database.
+ * @author Elise Kidroske
  */
 public class BookColumns {
     public static final String BARCODE = "barcode";

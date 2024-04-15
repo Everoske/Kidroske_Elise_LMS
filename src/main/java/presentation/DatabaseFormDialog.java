@@ -19,14 +19,10 @@ import javafx.stage.Window;
 import java.io.File;
 import java.util.Objects;
 
-/*
-Project By: Elise Kidroske
-Class: Software Development I CEN-3024C
-Date: 04/07/2024
-Name: Database Form Dialog
-Description:
-This dialog is used to obtain connection information for an
-external database provided by the user
+/**
+ * This class represents a dialog used to obtain connection information for an
+ * external database provided by the user.
+ * @author Elise Kidroske
  */
 public class DatabaseFormDialog extends Dialog<ButtonType> {
 
@@ -50,35 +46,45 @@ public class DatabaseFormDialog extends Dialog<ButtonType> {
         buildUI();
     }
 
-    /*
-    Name: Build UI
-    Arguments: None
-    Returns: Void
-    Description:
-    This method is responsible for constructing and initializing the dialog.
+    /**
+     * This method is responsible for constructing and initializing the dialog.
      */
     private void buildUI() {
         Pane pane = createVBox();
         getDialogPane().setContent(pane);
 
-        // Attempt to apply dialog style sheet to the UI
         try {
             getDialogPane().getScene().getStylesheets().add(getClass().getResource("/styles/library-dialog.css").toExternalForm());
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        // This ensures the clicking "X" will close the dialog
+        ensureXWillCloseDialog();
+    }
+
+    /**
+     * Ensures pressing the 'X' button will close the dialog.
+     */
+    private void ensureXWillCloseDialog() {
         Window window = getDialogPane().getScene().getWindow();
         window.setOnCloseRequest(event -> window.hide());
     }
 
-    /*
-    Name: Create VBox Pane
-    Arguments: None
-    Returns: Pane
-    Description:
-    This method constructs a VBox with all the dialog components.
+    /**
+     * Creates a message dialog providing attribution information on a given
+     * icon image.
+     * @param iconView ImageView containing the icon being attributed.
+     */
+    private void displayAttributeDialog(ImageView iconView) {
+        MessageDialog attributionDialog = new MessageDialog(
+                "Add Database Icon by Icons8\nSource: https://icons8.com/icon/pu2MfAM7qtF0/trash",
+                iconView.getImage());
+        attributionDialog.show();
+    }
+
+    /**
+     * This method constructs the VBox containing all dialog components.
+     * @return Pane representing the assembled dialog.
      */
     private Pane createVBox() {
         VBox mainPane = new VBox();
@@ -92,13 +98,10 @@ public class DatabaseFormDialog extends Dialog<ButtonType> {
         addDatabaseLabel.setTextAlignment(TextAlignment.CENTER);
 
         ImageView iconView = new ImageView();
-        // If the image is clicked, an attribution dialog containing information on its source is opened
+
         iconView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/images/add-database-100.png"))));
         iconView.setOnMouseClicked(mouseEvent -> {
-            MessageDialog attributionDialog = new MessageDialog(
-                    "Add Database Icon by Icons8\nSource: https://icons8.com/icon/pu2MfAM7qtF0/trash",
-                    iconView.getImage());
-            attributionDialog.show();
+            displayAttributeDialog(iconView);
         });
         iconView.prefHeight(50);
         iconView.prefWidth(300);
@@ -125,8 +128,6 @@ public class DatabaseFormDialog extends Dialog<ButtonType> {
         radioHBox.getChildren().add(mySQL);
         radioHBox.getChildren().add(sqlite);
 
-        // If the mySQL radio button is selected, make its group visible
-        // and hide the sqlite group
         mySQL.setOnAction(event -> {
             if (mySQL.isSelected()) {
                 mySQLGroup.setVisible(true);
@@ -134,8 +135,6 @@ public class DatabaseFormDialog extends Dialog<ButtonType> {
             }
         });
 
-        // If the sqlite radio button is selected, make its group visible
-        // and hide the sqlite group
         sqlite.setOnAction(event -> {
             if (sqlite.isSelected()) {
                 sqliteGroup.setVisible(true);
@@ -143,8 +142,6 @@ public class DatabaseFormDialog extends Dialog<ButtonType> {
             }
         });
 
-        // The mySQL group is used to contain all the fields needed for
-        // connection to an external mySQL database
         this.mySQLGroup = new VBox();
         mySQLGroup.setSpacing(5);
         mySQLGroup.setPrefWidth(300);
@@ -177,7 +174,6 @@ public class DatabaseFormDialog extends Dialog<ButtonType> {
         this.passwordField.setMinHeight(30);
         this.passwordField.setMaxHeight(30);
 
-        // Add all mySQL fields to the mySQL group
         mySQLGroup.getChildren().add(dataSourceLabel);
         mySQLGroup.getChildren().add(dbSourceField);
         mySQLGroup.getChildren().add(databaseNameLabel);
@@ -187,8 +183,6 @@ public class DatabaseFormDialog extends Dialog<ButtonType> {
         mySQLGroup.getChildren().add(passwordLabel);
         mySQLGroup.getChildren().add(passwordField);
 
-        // The sqlite group is used to contain all the fields needed for
-        // connection to an external sqlite database
         this.sqliteGroup = new VBox();
         sqliteGroup.setSpacing(5);
         sqliteGroup.setPrefWidth(300);
@@ -205,10 +199,7 @@ public class DatabaseFormDialog extends Dialog<ButtonType> {
         openDatabaseButton.setMinHeight(30);
         openDatabaseButton.setMaxHeight(30);
 
-        // Opens a file chooser and allows the user to select a database file
-        // instead of typing it in
         openDatabaseButton.setOnAction(event -> {
-            // Open a file chooser that exclusively looks for database files
             FileChooser fileChooser = new FileChooser();
 
             fileChooser.setTitle("Open Database File");
@@ -216,25 +207,19 @@ public class DatabaseFormDialog extends Dialog<ButtonType> {
 
             File selectedFile = fileChooser.showOpenDialog(null);
 
-            // If the user selected a valid file, copy its path to the database path field
             if (selectedFile != null) {
                 dbPathField.setText(selectedFile.getAbsolutePath());
             }
         });
 
-        // Add all sqlite fields to the sqlite group
         sqliteGroup.getChildren().add(dbPathLabel);
         sqliteGroup.getChildren().add(dbPathField);
         sqliteGroup.getChildren().add(openDatabaseButton);
 
-        // A stack pane is used for the two data source groups
-        // This allows them to take up the same space in the main
-        // pane of this dialog
         StackPane groupPane = new StackPane();
         groupPane.getChildren().add(mySQLGroup);
         groupPane.getChildren().add(sqliteGroup);
 
-        // Confirm/Cancel group
         HBox buttonHBox = new HBox();
         buttonHBox.setPrefWidth(300);
         buttonHBox.setSpacing(10);
@@ -252,12 +237,8 @@ public class DatabaseFormDialog extends Dialog<ButtonType> {
 
         confirmButton.setOnAction(event ->
         {
-            // Attempt to process the user's input into a sql form
             SQLForm form = getSQLForm();
             if (form != null) {
-                // If a form is given, set the user data of the
-                // dialog pane to the form, so it can be passed to
-                // the controller
                 setResult(ButtonType.OK);
                 getDialogPane().setUserData(form);
                 close();
@@ -269,11 +250,9 @@ public class DatabaseFormDialog extends Dialog<ButtonType> {
             close();
         });
 
-        // Add Confirm/Cancel buttons to group
         buttonHBox.getChildren().add(confirmButton);
         buttonHBox.getChildren().add(cancelButton);
 
-        // Add elements to main pane
         mainPane.getChildren().add(addDatabaseLabel);
         mainPane.getChildren().add(iconView);
         mainPane.getChildren().add(databaseTypeLabel);
@@ -284,49 +263,38 @@ public class DatabaseFormDialog extends Dialog<ButtonType> {
         mainPane.getChildren().add(groupPane);
         mainPane.getChildren().add(buttonHBox);
 
-        // Select mySQL by default
-        // Make the sqlite group invisible
         mySQL.setSelected(true);
         sqliteGroup.setVisible(false);
 
         return mainPane;
     }
 
-    /*
-    Name: Get SQL Form
-    Arguments: None
-    Returns: SQLForm form filled with user input
-    Description:
-    This method is responsible for processing the user's input into a
-    database form that can be used to form a connection with an
-    external SQL database
+    /**
+     * This method is responsible for processing the user's input into a
+     * database form that can be used to form a connection with an
+     * external SQL database
+     * @return SQLForm filled with external database connection information.
      */
     private SQLForm getSQLForm() {
-        // Determine what source type is currently selected
         SQLSourceType sourceType = mySQL.isSelected() ? SQLSourceType.MYSQL : SQLSourceType.SQLITE;
 
-        // A table name is required to proceed
         String tableName = tableNameField.getText().trim();
         if (tableName.isEmpty()) {
             return null;
         }
 
-        // If the source type is mySQL, process the data source, database name, username, and password fields
         if (sourceType.equals(SQLSourceType.MYSQL)) {
             String dataSource = dbSourceField.getText().trim();
             String databaseName = dbNameField.getText().trim();
             String username = usernameField.getText().trim();
             String password = passwordField.getText().trim();
 
-            // If no fields are empty, return a new SQL Form
             if (!dataSource.isEmpty() && !databaseName.isEmpty() &&
                     !username.isEmpty() && !password.isEmpty()) {
                 return new SQLForm(sourceType, tableName, dataSource, databaseName, username, password);
             }
         } else {
-            // If the source type is sqlite, process the database path field
             String databasePath = dbPathField.getText().trim();
-            // If a path is provided, return a new SQL Form
             if (!databasePath.isEmpty()) {
                 return new SQLForm(sourceType, tableName, databasePath);
             }

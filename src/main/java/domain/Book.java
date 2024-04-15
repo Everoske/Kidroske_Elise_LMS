@@ -1,12 +1,8 @@
 package domain;
 
-/*
-Project By: Elise Kidroske
-Class: Software Development I CEN-3024C
-Date: 03/01/2024
-Name: Book
-Description:
-Represents an instance of a book in the library's collection.
+/**
+ * This class represents an instance of a book in the library database.
+ * @author Elise Kidroske
  */
 public class Book {
     private int barcode;

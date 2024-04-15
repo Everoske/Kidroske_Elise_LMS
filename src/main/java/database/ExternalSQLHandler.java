@@ -7,23 +7,20 @@ import domain.BookStatus;
 import java.sql.*;
 import java.util.ArrayList;
 
-/*
-Project By: Elise Kidroske
-Class: Software Development I CEN-3024C
-Date: 04/07/2024
-Name: External SQL Handler
-Description:
-Responsible for handling data retrieval operations from external
-user-provided databases. Requires the user of an SQL Form to read
-books from a database
+/**
+ * This class is responsible for handling data retrieval operations
+ * from external user-provided databases.
+ * @author Elise Kidroske
  */
 public class ExternalSQLHandler {
-    /*
-    Name: Get Books MySql
-    Arguments: String server, String database, String username, String password, String table name
-    Returns: ArrayList<Book> representing all books from an external MySQL Database
-    Description:
-    Retrieves all books from a user-provided MySQL database
+    /**
+     * Retrieves all books from a user-provided MySQL database.
+     * @param server String name of SQL server.
+     * @param database String database name.
+     * @param username String username.
+     * @param password String password.
+     * @param tableName String table name.
+     * @return Book ArrayList containing all books from the database.
      */
     private ArrayList<Book> getBooksMySQL(String server, String database,
                                          String username, String password,
@@ -31,21 +28,15 @@ public class ExternalSQLHandler {
 
         ArrayList<Book> books = new ArrayList<>();
 
-        // Create connection string to external MySQL database
         String connectionString = "jdbc:mysql://" + server + "/" + database;
 
-        // Initialize a query string for all books in the database
         String selectString = "SELECT * FROM " + tableName;
 
-        // Open a connection to the library database and create a statement using
-        // try with resources
         try(Connection connection = DriverManager.getConnection(connectionString, username, password);
             PreparedStatement selectStatement = connection.prepareStatement(selectString)) {
 
-            // Find all books in the database
             ResultSet resultSet = selectStatement.executeQuery();
 
-            // Create book objects for each row of the books table
             while (resultSet.next()) {
                 String title = resultSet.getString(BookColumns.TITLE);
                 String author = resultSet.getString(BookColumns.AUTHOR);
@@ -54,7 +45,6 @@ public class ExternalSQLHandler {
                 BookStatus bookStatus = BookStatus.valueOf(bookStatusString);
                 String dueDate = resultSet.getString(BookColumns.DUE_DATE);
 
-                // Set the due date value
                 if (dueDate != null) {
                     books.add(new Book(-1, title, author, genre, bookStatus, dueDate));
                 } else {
@@ -68,33 +58,25 @@ public class ExternalSQLHandler {
         return books;
     }
 
-    /*
-    Name: Get Books from an external SQLite database
-    Arguments: String path, String tableName
-    Returns: ArrayList<Book> representing all books from an external MySQL Database
-    Description:
-    Retrieves all books from a user-provided MySQL database
+    /**
+     * Retrieves all books from a user-provided SQLite database.
+     * @param path String absolute path to *.db file.
+     * @param tableName String table name.
+     * @return Book ArrayList containing all books from the database.
      */
     private ArrayList<Book> getBooksSQLite(String path, String tableName) {
 
         ArrayList<Book> books = new ArrayList<>();
 
-        // Insert the user-provided table into the query
         String connectionString = "jdbc:sqlite:" + path;
 
-        // Initialize a query string for all books in the database
         String selectString = "SELECT * FROM " + tableName;
 
-
-        // Open a connection to the library database and create a statement using
-        // try with resources
         try(Connection connection = DriverManager.getConnection(connectionString);
             PreparedStatement selectStatement = connection.prepareStatement(selectString)) {
 
-            // Find all books in the database
             ResultSet resultSet = selectStatement.executeQuery();
 
-            // Create book objects for each row of the books table
             while (resultSet.next()) {
                 String title = resultSet.getString(BookColumns.TITLE);
                 String author = resultSet.getString(BookColumns.AUTHOR);
@@ -103,7 +85,6 @@ public class ExternalSQLHandler {
                 BookStatus bookStatus = BookStatus.valueOf(bookStatusString);
                 String dueDate = resultSet.getString(BookColumns.DUE_DATE);
 
-                // Set the due date value
                 if (dueDate != null) {
                     books.add(new Book(-1, title, author, genre, bookStatus, dueDate));
                 } else {
@@ -117,12 +98,11 @@ public class ExternalSQLHandler {
         return books;
     }
 
-    /*
-    Name: Get Books From Database
-    Arguments: SQLForm form with connection information
-    Returns: ArrayList<Book> representing all books from an external database
-    Description:
-    Processes the SQLForm and either returns books from a MySQL database or an SQLite database
+    /**
+     * Processes an SQLForm object and returns books from either an MySQL or SQLite database
+     * based on the information provided by the form.
+     * @param form SQLForm with external database connection information.
+     * @return Book ArrayList representing all books from an external database.
      */
     public ArrayList<Book> getBooksFromDatabase(SQLForm form) {
         if (form.getSourceType().equals(SQLSourceType.MYSQL)) {

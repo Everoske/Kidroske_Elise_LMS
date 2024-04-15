@@ -1,12 +1,9 @@
 package presentation;
 
-/*
-Project By: Elise Kidroske
-Class: Software Development I CEN-3024C
-Date: 03/24/2024
-Name: Message Type
-Description:
-Enum used for determining what type of message is being sent.
+/**
+ * This enum is used to determine the type of MessageDialog to be
+ * displayed to the user.
+ * @author Elise Kidroske
  */
 public enum MessageType {
     INFORMATIVE,

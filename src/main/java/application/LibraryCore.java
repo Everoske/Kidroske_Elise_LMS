@@ -21,15 +21,11 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/*
-Project By: Elise Kidroske
-Class: Software Development I CEN-3024C
-Date: 03/01/2024
-Name: Library Core
-Description:
-Primary component of the application layer. Processes and validates data from external files
-and passes them on for use. Handles exchanges of information between the controller and
-database layers. Enforces business logic.
+/**
+ * Represents the application layer of the library management system. Processes and
+ * validates data from external files and passes them on for use. Handles exchanges
+ * of information between the controller and database layers. Enforces business logic.
+ * @author Elise Kidroske
  */
 public class LibraryCore {
 
@@ -41,69 +37,53 @@ public class LibraryCore {
         databaseManager = new DatabaseManager();
     }
 
-    /*
-    Name: Get Books From Text File
-    Arguments: String representing path to a text file, IBookController representing controller
-    Returns: Void
-    Description:
-    Gets Book objects from an external text file
+    /**
+     * Retrieves Book objects from an external text file provided by the user.
+     * @param pathString String path to a text file.
+     * @param bookController IBookController representing the controller layer.
      */
     public void getBooksFromTextFile(String pathString, IBookController bookController) {
-        // Read books from a user provided location
         ArrayList<Book> books = readBooks(pathString);
 
-        // If no books are processed, inform Controller and return
         if (books == null || books.isEmpty()) {
             bookController.invokeError("Unable to read any books from file.");
             return;
         }
 
-        // Send books to the Controller for preview
         bookController.invokePreview(books);
     }
 
-    /*
-    Name: Get Books From Database
-    Arguments: SQLForm representing connection information for external database, IBookController representing controller
-    Returns: Void
-    Description:
-    Gets Book objects from an external database provided by the user
+    /**
+     * Retrieves Book objects from an external database provided by the user.
+     * @param form SQLForm representing connection information for an external database.
+     * @param bookController IBookController representing the controller layer.
      */
     public void getBooksFromDatabase(SQLForm form, IBookController bookController) {
-        // Used to handle external database connections
         ExternalSQLHandler handler = new ExternalSQLHandler();
 
-        // Read books from provided database
         ArrayList<Book> books = handler.getBooksFromDatabase(form);
 
-        // If no books are processed, inform Controller and return
         if (books == null || books.isEmpty()) {
             bookController.invokeError("Unable to read any books from database.");
             return;
         }
 
-        // Books successfully read, send them to Controller for preview
         bookController.invokePreview(books);
     }
 
-    /*
-    Name: Add Books to Database
-    Arguments: List<Book> representing books to add, IBookController representing controller
-    Returns: Void
-    Description:
-    Adds Books to the library's collection database
+    /**
+     * Instructs the database layer to add Book objects to the library database.
+     * @param newBooks Book List representing books to add to database.
+     * @param bookController IBookController representing the controller layer.
      */
     public void addBooksToDatabase(List<Book> newBooks, IBookController bookController) {
-        // Inform database manager to insert books to collection
         boolean insertedBooks = databaseManager.insertBooks(newBooks);
 
-        // If insertion was unsuccessful, inform Controller and return
         if (!insertedBooks) {
             bookController.invokeError("Unable to insert books.");
             return;
         }
 
-        // Inform Controller about the change
         bookController.updateContent(databaseManager.getAllBooks());
         bookController.invokeMessage("Books were added successfully.");
     }
@@ -115,185 +95,153 @@ public class LibraryCore {
     Description:
     Removes a Book from the library's collection database
      */
+
+    /**
+     * Instructs the database layer to remove the provided Book from the library database.
+     * @param book
+     * @param bookController
+     */
     public void removeBookFromCollection(Book book, IBookController bookController) {
-        // Delete the book from the database
         boolean bookDeleted = databaseManager.deleteBook(book);
 
-        // If the book cannot be deleted, invoke an error message and terminate process
         if (!bookDeleted) {
             bookController.invokeError("Unable to delete book.");
             return;
         }
 
-        // Inform Controller layer about change
         bookController.updateContent(databaseManager.getAllBooks());
         bookController.invokeMessage(book.getTitle() + " was successfully removed from the database.");
     }
 
-    /*
-    Name: Check Out Book
-    Arguments: Book for the book to check out, IBookController for the controller
-    Returns: Void
-    Description:
-    Changes the status of the book to checked out
-    Informs database to update book in the library's collection
+    /**
+     * Enforces check-out logic for Book objects, checks out Book objects if applicable,
+     * and instructs the database layer to update the provided book in the library database.
+     * @param book Book object to check out.
+     * @param bookController IBookController representing the controller layer.
      */
     public void checkOutBook(Book book, IBookController bookController) {
-        // If book is already checked in, invoke an error message and terminate process
         if (book.getBookStatus() == BookStatus.CHECKED_OUT) {
             bookController.invokeError("You cannot check out a book that is already checked out.");
             return;
         }
 
-        // Change Status
         book.setBookStatus(BookStatus.CHECKED_OUT);
 
-        // Change the due date to be 4 weeks from the current date
-        LocalDate dueDate = LocalDate.now();
-        book.setDueDate(dueDate.plusWeeks(4).toString());
+        LocalDate dueDate = LocalDate.now().plusWeeks(4);
+        book.setDueDate(dueDate.toString());
 
-        // Tell Database layer to update book
         boolean bookUpdated = databaseManager.updateBook(book);
 
-        // If there was an error with updating the book, invoke an error message and terminate process
         if (!bookUpdated) {
             bookController.invokeError("Unable to update book.");
             return;
         }
 
-        // Inform Controller layer about the change
         bookController.updateContent(databaseManager.getAllBooks());
         bookController.invokeMessage(book.getTitle() + " was successfully checked out.\nThe new due date is " + book.getDueDate() + ".");
     }
 
-    /*
-    Name: Check In Book
-    Arguments: Book for the book to check in, IBookController for the controller
-    Returns: Void
-    Description:
-    Changes the status of the book to checked in
-    Informs database to update book in the library's collection
+    /**
+     * Enforces check-in logic for Book objects, checks in Book objects if applicable,
+     * and instructs the database layer to update the provided book in the library database.
+     * @param book Book object to check out.
+     * @param bookController IBookController representing the controller layer.
      */
     public void checkInBook(Book book, IBookController bookController) {
-        // If book is already checked in, invoke an error message and terminate process
         if (book.getBookStatus() == BookStatus.CHECKED_IN) {
             bookController.invokeError("You cannot check in a book that is already checked in.");
             return;
         }
 
-        // Change Status and set due date to a string literal null
         book.setBookStatus(BookStatus.CHECKED_IN);
         book.setDueDate("");
 
-        // Tell Database layer to update book
         boolean bookUpdated = databaseManager.updateBook(book);
 
-        // If there was an error with updating the book, invoke an error message and terminate process
         if (!bookUpdated) {
             bookController.invokeError("Unable to update book.");
             return;
         }
 
-        // Inform Controller layer about the change
         bookController.updateContent(databaseManager.getAllBooks());
         bookController.invokeMessage(book.getTitle() + " was successfully checked in.");
     }
 
-    /*
-    Name: Find Book By Title
-    Arguments: String title to lookup
-    Returns: Book
-    Description:
-    Searches for a book using its title
+    /**
+     * Instructs the database layer to search for a Book object when
+     * provided a title.
+     * @param title String title to search for.
+     * @return Book object that matches title provided.
      */
     public Book findBookByTitle(String title) {
         return databaseManager.searchByTitle(title);
     }
 
-    /*
-    Name: Find Book By Barcode
-    Arguments: String barcode to lookup
-    Returns: Book
-    Description:
-    Searches for a book using its barcode
+    /**
+     * Instructs the database layer to search for a Book object when
+     * provided a barcode.
+     * @param barcode Int barcode to search for.
+     * @return Book object that matches barcode provided.
      */
     public Book findBookByBarcode(int barcode) {
         return databaseManager.searchByBarcode(barcode);
     }
 
-    /*
-    Name: Get Library Books
-    Arguments: None
-    Returns: ArrayList<Book> for the books from the library's database
-    Description:
-    Returns all the books from the library's collection
+    /**
+     * Instructs the database layer to retrieve all books from the library database.
+     * @return Book ArrayList containing all books in library database.
      */
     public ArrayList<Book> getLibraryBooks() {
         return databaseManager.getAllBooks();
     }
 
-    /*
-    Name: Read Books
-    Arguments: Path for the path to a text file
-    Returns: ArrayList<Book> for the books read from the text file
-    Description:
-    Given a Path object, returns a collection of books from a given file location
+    /**
+     * Attempts to read Book objects from a provided text file.
+     * @param path Path object representing absolute path to text file.
+     * @return Book ArrayList containing books retrieved from the provided text file.
      */
     private ArrayList<Book> readBooks(Path path) {
         ArrayList<Book> books = new ArrayList<>();
 
-        // Open the path with a Buffered Reader
         try (BufferedReader reader = Files.newBufferedReader(path, encoding)) {
-            // Read the first line returned
+
             String line = reader.readLine();
 
             while (line != null) {
-                // Ensure formatting
                 if (validateFormat(line)) {
-                    // Create a book object using the line returned
                     Book book = createBookFromString(line);
                     if (book != null) {
                         books.add(book);
                     }
                 }
 
-                // Continue reading through the entire document
                 line = reader.readLine();
             }
         } catch (IOException ignored) {
-
         }
 
         return books;
     }
 
-    /*
-    Name: Read Books
-    Arguments: String path
-    Returns: ArrayList<Book> for the books read from the text file
-    Description:
-    Returns a collection of books from a given file location String
-    Returns null if unable to generate a Path object from the given String
+    /**
+     * Attempts to read Book objects from a provided text file.
+     * @param pathString String absolute path to text file.
+     * @return Book ArrayList containing books retrieved from the provided text file.
      */
     public ArrayList<Book> readBooks(String pathString) {
-        // Attempt to create a Path object
         try {
             Path path = Paths.get(pathString);
-            // Return books read using the overloaded method
             return readBooks(path);
         } catch (InvalidPathException ignored) {
-
         }
 
         return null;
     }
 
-    /*
-    Name: Validate Format
-    Arguments: String for a line in a text file
-    Returns: True or false based on whether the line has a match to the regex
-    Description:
-    Checks to ensure the file is in the correct format using a regular expression
+    /**
+     * Ensures a file is in the correct format using a regular expression.
+     * @param line String line of text from a text document.
+     * @return True if validation is successful, false otherwise.
      */
     private boolean validateFormat(String line) {
         // This pattern matches title,author,genre,checked_status
@@ -311,42 +259,45 @@ public class LibraryCore {
     Returns null if unable to create a Book object
     The book ID is -1 which is meant to be a placeholder for database insertion
     */
-    private Book createBookFromString(String bookString) {
-        // Split string using commas as the delimiter
-        String[] parameters = bookString.split(",");
-        // Convert the string book status to the enum book status
-        BookStatus bookStatus = stringToBookStatus(parameters[3]);
 
-        // Books must have a Book Status
+    /**
+     * Converts a String into a Book object.
+     * @param bookString String line of text to be converted.
+     * @return Book object from provided String.
+     */
+    private Book createBookFromString(String bookString) {
+
+        String[] parameters = bookString.split(",");
+
+        String title = parameters[0];
+        String author = parameters[1];
+        String genre = parameters[2];
+        String status = parameters[3];
+
+        BookStatus bookStatus = stringToBookStatus(status);
+
         if (bookStatus == null) {
             return null;
         }
 
-        // Some books will have a due date, check if it exists
         if (parameters.length > 4) {
             String dateString = parameters[4];
 
-            // Ensure the string provided can be converted into a LocalDate object
             LocalDate dueDate = parseLocalDate(dateString);
             if (dueDate != null) {
-                // Returns a book with a due date
-                return  new Book(-1, parameters[0], parameters[1], parameters[2],  bookStatus, dateString);
+                return  new Book(-1, title, author, genre,  bookStatus, dateString);
             }
         }
 
-        // Returns a book without a due date
-        return new Book(-1, parameters[0], parameters[1], parameters[2], bookStatus);
+        return new Book(-1,  title, author, genre,  bookStatus);
     }
 
-    /*
-    Name: String to Book Status
-    Arguments: String text
-    Returns: Book Status enum
-    Description:
-    Converts a String value into a BookStatus enum
+    /**
+     * Converts a String value into a BookStatus enum.
+     * @param text String value to convert.
+     * @return BookStatus processed.
      */
     private BookStatus stringToBookStatus(String text) {
-        // Ensure the text has an equivalent checked status regardless of case
         if (text.equalsIgnoreCase(BookStatus.CHECKED_OUT.toString()) ||
                 text.equalsIgnoreCase(BookStatus.CHECKED_IN.toString())) {
             return BookStatus.valueOf(text.toUpperCase());
@@ -354,16 +305,13 @@ public class LibraryCore {
         return null;
     }
 
-    /*
-    Name: Parse Local Date
-    Arguments: String date
-    Returns: Local Date
-    Attempts to convert a String into a LocalDate object
-    Returns null if no LocalDate can be translated
+    /**
+     * Attempts to convert a String into a LocalData object.
+     * @param dateString String date to parse.
+     * @return LocalData representing processed date.
      */
     private LocalDate parseLocalDate(String dateString) {
         try {
-            // Return the current date
             return LocalDate.parse(dateString);
         } catch (DateTimeException ignored) {
 

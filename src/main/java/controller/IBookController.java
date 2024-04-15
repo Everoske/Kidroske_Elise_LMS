@@ -3,50 +3,34 @@ package controller;
 import domain.Book;
 import java.util.ArrayList;
 
-/*
-Project By: Elise Kidroske
-Class: Software Development I CEN-3024C
-Date: 03/01/2024
-Name: IBookController
-Description:
-Used to allow the application layer to respond to the controller layer without directly
-accessing the controller layer
+/**
+ * This interface is used to allow for the application layer to call methods within the controller
+ * layer without directly accessing the controller layer.
+ * @author Elise Kidroske
  */
 public interface IBookController {
-
-    /*
-    Name: Invoke Message
-    Arguments: String message
-    Returns: Void
-    Description:
-    Used to inform the class that implements this method
+    /**
+     * Used to display a message.
+     * @param message String message to display.
      */
     void invokeMessage(String message);
 
-    /*
-    Name: Invoke Error
-    Arguments: String message
-    Returns: Void
-    Description:
-    Used to inform the class that implements this method that an error has occurred
+    /**
+     * Used to display an error message.
+     * @param message String error message to display.
      */
     void invokeError(String message);
 
-    /*
-    Name: Invoke Delete Confirmation
-    Arguments: String message, Book to delete
-    Returns: Void
-    Description:
-    Used to get confirmation from the user before deleting the given book
+    /**
+     * Used to get confirmation from the user before deleting the provided book.
+     * @param message String confirmation message.
+     * @param book Book object to be deleted.
      */
     void invokeDeleteConfirmation(String message, Book book);
 
-    /*
-    Name: Update Content
-    Arguments: ArrayList<Book> representing library collection
-    Returns: Void
-    Description:
-    Meant to update the controller's observable list
+    /**
+     * Used to update the controller's observable list.
+     * @param updatedBooks Book ArrayList containing books from the library database.
      */
     void updateContent(ArrayList<Book> updatedBooks);
 
@@ -56,6 +40,12 @@ public interface IBookController {
     Returns: Void
     Description:
     Used to show the user a preview of the books they would like to add
+     */
+
+    /**
+     * Used to display new books provided by the user before adding them to the
+     * library database.
+     * @param newBooks Book ArrayList representing new books to add to library.
      */
     void invokePreview(ArrayList<Book> newBooks);
 

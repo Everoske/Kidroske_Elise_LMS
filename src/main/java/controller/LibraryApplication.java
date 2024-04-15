@@ -7,27 +7,26 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-/*
-Project By: Elise Kidroske
-Class: Software Development I CEN-3024C
-Date: 03/24/2024
-Name: Library Application
-Description:
-The purpose of this program is to allow users to manage the contents of a library.
-The library collection is represented by Book objects stored in a relational database.
-This program allows users to view the books in the library's database, add new books
-by providing text files, delete existing books using their title or barcode, and
-check out/check in books using their title.
-
-This is the insertion point of the JavaFX program.
+/**
+ * This is the insertion point of the library management system application.
+ * This call initializes the user interface and launches the application.
+ * @author Elise Kidroske
  */
 public class LibraryApplication extends Application {
+    /**
+     * Initializes the user interface and creates the application window.
+     * @param stage Top-level container for the JavaFX application.
+     * @throws IOException Thrown if error occurs when loading user interface.
+     */
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(LibraryApplication.class.getResource("/view/library-management-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 625, 725);
 
-        // Attempt to apply library management style sheet to the UI
+        int preferredWindowWidth = 625;
+        int preferredWindowHeight = 725;
+
+        Scene scene = new Scene(fxmlLoader.load(), preferredWindowWidth, preferredWindowHeight);
+
         try {
             scene.getStylesheets().add(getClass().getResource("/styles/library-management.css").toExternalForm());
         } catch (Exception e) {
@@ -39,6 +38,10 @@ public class LibraryApplication extends Application {
         stage.show();
     }
 
+    /**
+     * Launches the application.
+     * @param args String array containing command line arguments
+     */
     public static void main(String[] args) {
         launch();
     }

@@ -5,22 +5,15 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.util.Callback;
 
-/*
-Project By: Elise Kidroske
-Class: Software Development I CEN-3024C
-Date: 03/24/2024
-Name: BookCellFactory
-Description:
-This is used as a wrapper for a Book object in a ListView.
-It determines how the Book is presented in the ListView.
+/**
+ * This class determines how a Book object is presented in a ListView.
+ * @author Elise Kidroske
  */
 public class BookCellFactory implements Callback<ListView<Book>, ListCell<Book>> {
-    /*
-    Name: Call
-    Arguments: ListView<Book> parent list view
-    Returns: ListCell<Book>
-    Description:
-    Called when ListView updates, allows us to set cell properties
+    /**
+     * Determines how a Book object should be displayed in a ListView.
+     * @param bookListView Book ListView used in the user interface.
+     * @return ListCell containing the formatting for Book objects.
      */
     @Override
     public ListCell<Book> call(ListView<Book> bookListView) {

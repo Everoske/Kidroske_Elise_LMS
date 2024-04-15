@@ -11,13 +11,9 @@ import javafx.stage.Window;
 
 import java.util.Objects;
 
-/*
-Project By: Elise Kidroske
-Class: Software Development I CEN-3024C
-Date: 03/24/2024
-Name: Message Dialog
-Description:
-This dialog is to display a message to the user.
+/**
+ * This class represents a dialog used to display a message to the user.
+ * @author Elise Kidroske
  */
 public class MessageDialog extends Dialog<ButtonType> {
     private final String message;
@@ -51,35 +47,46 @@ public class MessageDialog extends Dialog<ButtonType> {
         buildUI();
     }
 
-    /*
-    Name: Build UI
-    Arguments: None
-    Returns: Void
-    Description:
-    This method is responsible for constructing and initializing the dialog.
+    /**
+     * This method is responsible for constructing and initializing the dialog.
      */
     private void buildUI() {
         Pane pane = createVBoxPane();
         getDialogPane().setContent(pane);
 
-        // Attempt to apply dialog style sheet to the UI
         try {
             getDialogPane().getScene().getStylesheets().add(getClass().getResource("/styles/library-dialog.css").toExternalForm());
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        // This ensures the clicking "X" will close the dialog
+        ensureXWillCloseDialog();
+    }
+
+    /**
+     * Ensures pressing the 'X' button will close the dialog.
+     */
+    private void ensureXWillCloseDialog() {
         Window window = getDialogPane().getScene().getWindow();
         window.setOnCloseRequest(event -> window.hide());
     }
 
-    /*
-    Name: Create VBox Pane
-    Arguments: None
-    Returns: Pane
-    Description:
-    This method constructs a VBox with all the dialog components.
+    /**
+     * Creates a message dialog providing attribution information on a given
+     * icon image.
+     * @param iconView ImageView containing the icon being attributed.
+     * @param attributionString String representing attribution message.
+     */
+    private void displayAttributeDialog(ImageView iconView, String attributionString) {
+        MessageDialog attributionDialog = new MessageDialog(
+                attributionString,
+                iconView.getImage());
+        attributionDialog.show();
+    }
+
+    /**
+     * This method constructs the VBox containing all dialog components.
+     * @return Pane representing the assembled dialog.
      */
     public Pane createVBoxPane() {
         VBox pane = new VBox();
@@ -87,17 +94,11 @@ public class MessageDialog extends Dialog<ButtonType> {
         Label confirmLabel = new Label(message);
         ImageView iconView = new ImageView(icon);
         if (type != MessageType.ATTRIBUTION) {
-            // If this is not an attribution dialog, set the on click listener
-            // for the image to open an attribution dialog with the respective
-            // information for each image
             String attributionString = type == MessageType.INFORMATIVE ?
                     "Idea Icon by Icons8\nSource: https://icons8.com/icon/67370/idea" :
                     "Cancel Icon by Icons8\nSource: https://icons8.com/icon/97743/cancel";
             iconView.setOnMouseClicked(mouseEvent -> {
-                MessageDialog attributionDialog = new MessageDialog(
-                        attributionString,
-                        iconView.getImage());
-                attributionDialog.show();
+                displayAttributeDialog(iconView, attributionString);
             });
         }
         iconView.prefHeight(50);

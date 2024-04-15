@@ -1,13 +1,8 @@
 package domain;
 
-/*
-Project By: Elise Kidroske
-Class: Software Development I CEN-3024C
-Date: 03/01/2024
-Name: Book Status
-Description:
-Represents the checked status of a book. Can either be checked out
-or checked in
+/**
+ * This enum represents the checked status of a Book object.
+ * @author Elise Kidroske
  */
 public enum BookStatus {
     CHECKED_OUT,
