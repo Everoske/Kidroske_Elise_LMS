@@ -14,10 +14,8 @@ import java.util.List;
  * @author Elise Kidroske
  */
 public class DatabaseManager {
+    /** Contains the connection information needed to connect to the library database.*/
     private final String CONNECTION_STRING = "jdbc:sqlite:data/library_database.db";
-
-    public DatabaseManager() {
-    }
 
     /**
      * Retrieves all books from the library database.

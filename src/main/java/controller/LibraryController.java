@@ -26,30 +26,44 @@ import java.util.ArrayList;
  */
 public class LibraryController implements IBookController {
 
+    /** Displays books from the library database to the user.*/
     @FXML
     public ListView<Book> bookList;
+    /** TextField for entering a book title for removal.*/
     @FXML
     public TextField removeBookByTitle;
+    /** TextField for entering a book barcode for removal.*/
     @FXML
     public TextField removeBookByBarcode;
+    /** TextField for entering a book title to check in or check out.*/
     @FXML
     public TextField checkBooksField;
+    /** Displays the title of the selected book.*/
     @FXML
     public Label bookTitleText;
+    /** Displays the barcode of the selected book.*/
     @FXML
     public Label bookBarcodeText;
+    /** Displays the author of the selected book.*/
     @FXML
     public Label bookAuthorText;
+    /** Displays the genre of the selected book.*/
     @FXML
     public Label bookGenreText;
+    /** Displays the status of the selected book.*/
     @FXML
     public Label bookStatusText;
+    /** Displays the due date of the selected book.*/
     @FXML
     public Label bookDueDateText;
 
+    /** Represents the application layer. Enforces business logic, processes
+     * exchanges of external data, and communicates with the database layer.*/
     private LibraryCore libraryCore;
+    /** Stores Book objects from the library database for display in the ListView.*/
     private ObservableList<Book> observableBooks;
 
+    /** Represents the selected book in the ListView.*/
     private Book selectedBook;
 
     /**

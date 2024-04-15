@@ -14,7 +14,6 @@ domain\BookStatus.class
 application\LibraryCore.class
 controller\LibraryApplication.class
 presentation\ConfirmationDialog.class
-test\PseudoDatabase.class
 controller\BookCellFactory.class
 controller\BookCellFactory$1.class
 controller\IBookController.class

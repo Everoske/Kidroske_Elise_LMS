@@ -5,11 +5,17 @@ package domain;
  * @author Elise Kidroske
  */
 public class Book {
+    /** Unique barcode used for storage in the library database.*/
     private int barcode;
+    /** The title of the book.*/
     private String title;
+    /** The author of the book.*/
     private String author;
+    /** The genre of the book.*/
     private String genre;
+    /** Determines whether the book is checked in or checked out.*/
     private BookStatus bookStatus;
+    /** The due date of the book.*/
     private String dueDate;
 
     public Book(int barcode, String title, String author, String genre, BookStatus bookStatus) {

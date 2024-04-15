@@ -20,6 +20,7 @@ import java.util.Objects;
  * @author Elise Kidroske
  */
 public class ConfirmationDialog extends Dialog<ButtonType> {
+    /** Message to display in the dialog.*/
     private final String message;
 
     public ConfirmationDialog(String message) {

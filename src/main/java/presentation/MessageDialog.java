@@ -16,8 +16,11 @@ import java.util.Objects;
  * @author Elise Kidroske
  */
 public class MessageDialog extends Dialog<ButtonType> {
+    /** Message to display in the dialog.*/
     private final String message;
+    /** The expected type of message to display. Determines the behavior of the dialog.*/
     private final MessageType type;
+    /** The image to display in the dialog.*/
     private final Image icon;
 
 

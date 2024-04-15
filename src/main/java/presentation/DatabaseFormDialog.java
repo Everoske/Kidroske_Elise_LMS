@@ -26,17 +26,27 @@ import java.util.Objects;
  */
 public class DatabaseFormDialog extends Dialog<ButtonType> {
 
-    private TextField dbNameField;
+    /** Selects MySQL as the database type.*/
     private RadioButton mySQL;
+    /** Selects SQLite as the database type.*/
     private RadioButton sqlite;
-
-    private VBox mySQLGroup;
-    private TextField dbSourceField;
+    /** Obtains the name of the table to access in the database.*/
     private TextField tableNameField;
+
+    /** Container for storing form components for accessing a MySQL database.*/
+    private VBox mySQLGroup;
+    /** Obtains the server hosting a MySQL database.*/
+    private TextField dbSourceField;
+    /** Obtains the name of the database to access.*/
+    private TextField dbNameField;
+    /** Obtains username used to access a MySQL database.*/
     private TextField usernameField;
+    /** Obtains password corresponding to the provided username.*/
     private PasswordField passwordField;
 
+    /** Container for storing form components for accessing a SQLite database.*/
     private VBox sqliteGroup;
+    /** Obtains absolute path to a SQLite database file.*/
     private TextField dbPathField;
 
 

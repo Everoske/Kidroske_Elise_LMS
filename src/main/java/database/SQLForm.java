@@ -6,13 +6,19 @@ package database;
  * @author Elise Kidroske
  */
 public class SQLForm {
+    /** Represents the type of SQL database.*/
     private final SQLSourceType sourceType;
+    /** The table to access within the database.*/
     private final String tableName;
-
+    /** The server the database is hosted on.*/
     private String dataSource;
+    /** The name of the database to access.*/
     private String databaseName;
+    /** The username used to access the database.*/
     private String username;
+    /** The password corresponding with the username.*/
     private String password;
+    /** An absolute path to a database file to open.*/
     private String databaseFilePath;
 
     public SQLForm(SQLSourceType sourceType, String tableName,

@@ -24,7 +24,9 @@ import java.util.Objects;
  * @author Elise Kidroske
  */
 public class PreviewBooksDialog extends Dialog<ButtonType> {
+    /** Displays Book objects for user to preview.*/
     private ListView<Book> booksList;
+    /** Stores Book objects to display in ListView.*/
     private final ObservableList<Book> observableBooks;
 
     public PreviewBooksDialog(ArrayList<Book> books) {

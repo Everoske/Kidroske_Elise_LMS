@@ -29,7 +29,9 @@ import java.util.regex.Pattern;
  */
 public class LibraryCore {
 
+    /** Handles direct interactions with the library database.*/
     private final DatabaseManager databaseManager;
+    /** Encoding used for processing user-provided text files.*/
     private final Charset encoding;
 
     public LibraryCore(Charset encoding) {
