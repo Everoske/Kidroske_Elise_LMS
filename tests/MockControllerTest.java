@@ -8,14 +8,10 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/*
-Project By: Elise Kidroske
-Class: Software Development I CEN-3024C
-Date: 03/07/2024
-Name: Mock Controller Test
-Description:
-Tests the behavioral requirements of the application through
-a mock controller implementation
+/**
+ * Tests the behavioral requirements of the application through
+ * a mock controller implementation.
+ * @author Elise Kidroske
  */
 class MockControllerTest {
 
@@ -27,11 +23,9 @@ class MockControllerTest {
         mockController = new MockController(libraryCore);
     }
 
-    /*
-    Test Name: Add Books From Test File
-    Purpose: Test ability to add books from a user-given text file
-    Input: A text file with 4 parsable book objects
-    Expected Outcome: int 4 representing books added
+    /**
+     * Test ability to add books from a user-given text file
+     * @result Actual number of books added will equal the expected number of books added
      */
     @org.junit.jupiter.api.Test
     @DisplayName("Add Books From File Test")
@@ -43,11 +37,9 @@ class MockControllerTest {
         assertEquals(expectedBooksAdded, actualBooksAdded);
     }
 
-    /*
-    Test Name: Remove Book by Title
-    Purpose: Test ability to remove books from a user-provided book title
-    Input: String title
-    Expected Outcome: int 1 representing the number of books removed
+    /**
+     * Test ability to remove books from a user-provided book title.
+     * @result Actual number of books removed should equal the expected number of books removed
      */
     @org.junit.jupiter.api.Test
     @DisplayName("Remove Book by Title Test")
@@ -58,11 +50,9 @@ class MockControllerTest {
         assertEquals(expectedRemoved, actualRemoved);
     }
 
-    /*
-    Test Name: Remove Book by Barcode
-    Purpose: Test ability to remove books from a user-provided book barcode
-    Input: String barcode
-    Expected Outcome: int 1 representing the number of books removed
+    /**
+     * Test ability to remove books from a user-provided book barcode
+     * @result Actual number of books removed should equal the expected number of books removed
      */
     @org.junit.jupiter.api.Test
     @DisplayName("Remove Book by Barcode Test")
@@ -73,12 +63,9 @@ class MockControllerTest {
         assertEquals(expectedRemoved, actualRemoved);
     }
 
-    /*
-    Test Name: Check In Book
-    Purpose: Test ability to check in books from a user-provided book title
-    Input: String title
-    Expected Outcome: Book object returned is not null. Book status equals checked in.
-    Book due date equals "null."
+    /**
+     * Test ability to check in books from a user-provided book title
+     * @result Book object returned is not null. Book status equals checked in. Book due date equals empty.
      */
     @org.junit.jupiter.api.Test
     @DisplayName("Check In Book Test")
@@ -87,15 +74,12 @@ class MockControllerTest {
 
         assertNotNull(book);
         assertEquals(BookStatus.CHECKED_IN, book.getBookStatus());
-        assertEquals("null", book.getDueDate());
+        assertEquals("", book.getDueDate());
     }
 
-    /*
-    Test Name: Check Out Book
-    Purpose: Test ability to check out books from a user-provided book title
-    Input: String title
-    Expected Outcome: Book object returned is not null. Book status equals checked out.
-    Book due date is equal to 4 weeks after today's date.
+    /**
+     * Test ability to check out books from a user-provided book title
+     * @result Book object returned is not null. Book status equals checked out. Book due date is 4 weeks from current date.
      */
     @org.junit.jupiter.api.Test
     @DisplayName("Check Out Book Test")
