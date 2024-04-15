@@ -92,8 +92,8 @@ public class LibraryCore {
 
     /**
      * Instructs the database layer to remove the provided Book from the library database.
-     * @param book
-     * @param bookController
+     * @param book Book to remove from the database.
+     * @param bookController IBookController representing the controller layer.
      */
     public void removeBookFromCollection(Book book, IBookController bookController) {
         boolean bookDeleted = databaseManager.deleteBook(book);

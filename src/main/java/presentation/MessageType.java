@@ -6,7 +6,10 @@ package presentation;
  * @author Elise Kidroske
  */
 public enum MessageType {
+    /** Message provides helpful information to the user.*/
     INFORMATIVE,
+    /** Message displays an error message to the user.*/
     ERROR,
+    /** Message displays an attribution message to the user.*/
     ATTRIBUTION
 }
